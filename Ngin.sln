@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ngin", "Ngin\Ngin.csproj", "{FE69C5D9-AC4B-4145-A30D-5145811222EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE69C5D9-AC4B-4145-A30D-5145811222EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE69C5D9-AC4B-4145-A30D-5145811222EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE69C5D9-AC4B-4145-A30D-5145811222EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE69C5D9-AC4B-4145-A30D-5145811222EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
