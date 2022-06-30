@@ -24,8 +24,8 @@ public class Turn
         charactersInMoveOrder = GetCharactersInMoveOrder();
         
         turnStartState = new TurnStartState(this);
-        turnStartState.Start();
         turnStartState.Ended += OnTurnStartStateEnded;
+        turnStartState.Start();
     }
 
     private void OnTurnStartStateEnded()
@@ -65,7 +65,6 @@ public class Turn
         for (int i = allCharacters.Count - 1; i >= 0; i--)
         {
             charactersInOrder.Enqueue(allCharacters[i]);
-            Console.WriteLine(allCharacters[i].Name + ", " + allCharacters[i].Initiative.Current);
         }
 
         return charactersInOrder;

@@ -1,22 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ngin.Cards;
 
 namespace Ngin.LogSystem;
 
 public class ConsoleLogSystem : ILogSystem
 {
-    public void LogCardsToChooseFrom(Dictionary<string, string> cardNamesByKeyboardKeys, string passKey = null)
+    private void LogSeparator()
     {
-        Console.WriteLine("Choose card:");
-            
-        foreach (KeyValuePair<string, string> cardNameKeyPair in cardNamesByKeyboardKeys)
-        {
-            Console.WriteLine($"Press {cardNameKeyPair.Key} to choose {cardNameKeyPair.Value}");
-        }
+        Console.WriteLine("------------------------------------------------------------------------");
+    }
+    
+    public void LogInvalidInput(string invalidInput, List<string> validInputs)
+    {
+        LogSeparator();
+        
+        string message = $"Sorry, {invalidInput} is invalid input.";
 
-        if (!string.IsNullOrEmpty(passKey))
+        if (validInputs?.Count > 0)
         {
-            Console.WriteLine($"Press {passKey} to pass.");
+            message = string.Concat(message, $" Valid inputs are: {string.Join(", ", validInputs)}.");
         }
+        
+        Console.WriteLine(message);
+    }
+
+    public void LogCardsToChooseFrom(Dictionary<string, Card> cardsByInput)
+    {
+        LogSeparator();
+        Console.WriteLine("Choose card:");
+
+        foreach (KeyValuePair<string, Card> cardByInput in cardsByInput)
+        {
+            Console.WriteLine($"Type {cardByInput.Key} to choose {cardByInput.Value.Name}.");
+        }
+    }
+
+    public void LogCardChoice(Card chosenCard)
+    {
+        LogSeparator();
+        Console.WriteLine($"Chosen card: {chosenCard.Name}");
+    }
+
+    public void LogPassInput(string passInput)
+    {
+        Console.WriteLine($"Type {passInput} to pass.");
     }
 }

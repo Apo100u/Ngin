@@ -25,8 +25,6 @@ public static class CharactersHelper
             else
             {
                 comparison = RNG.NextSign();
-                
-                System.Console.WriteLine("Randomed: " + comparison);
             }
 
             return comparison;

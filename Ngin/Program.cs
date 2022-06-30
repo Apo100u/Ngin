@@ -1,5 +1,7 @@
 ﻿using Ngin.Characters;
 using Ngin.Gameplay;
+using Ngin.InputSystem;
+using Ngin.LogSystem;
 
 namespace Ngin;
 
@@ -22,10 +24,16 @@ internal class Program
 
         Team team1 = new(character1, character2, character3, character4, character5);
         Team team2 = new(character6, character7, character8, character9, character10);
-        
-        GameSettings settings = new(4, 1, 10);
-        
-        Game game = new(settings, team1, team2);
+
+        IInputSystem inputSystem = new ConsoleInputSystem();
+        ILogSystem logSystem = new ConsoleLogSystem();
+        GameSettings settings = new(
+            cardsAllowedToPlayPerTurn: 1,
+            cardsToDrawOnGameStart:    4,
+            cardsToDrawOnTurnStart:    1,
+            maxCardsInHand:            10);
+
+        Game game = new(inputSystem, logSystem, settings, team1, team2);
         game.Start();
         // TEST ===========================================================================
     }

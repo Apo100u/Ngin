@@ -57,6 +57,8 @@
         <Compile Include="Gameplay\Turns\ITurnState.cs" />
         <Compile Include="Gameplay\Turns\Turn.cs" />
         <Compile Include="Gameplay\Turns\TurnStartState.cs" />
+        <Compile Include="InputSystem\CardChooser.cs" />
+        <Compile Include="InputSystem\ConsoleCardChooser.cs" />
         <Compile Include="InputSystem\ConsoleInputSystem.cs" />
         <Compile Include="InputSystem\EventArgs.cs" />
         <Compile Include="InputSystem\IInputSystem.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using Ngin.Characters;
+using Ngin.InputSystem;
 
 namespace Ngin.Gameplay.Turns;
 
@@ -21,6 +22,13 @@ public class CharacterMoveState : ITurnState
 
     private void ChooseCardToPlay()
     {
-        Game.InputSystem.ChooseCardFromHand(character, OnCardChoosen);
+        Game.InputSystem.ChooseCardsFromSet(character.Hand, OnCardsChosen)
+            .SetMaxAmount(1)
+            .AllowPassing()
+            .Start();
+    }
+
+    private void OnCardsChosen(CardsChosenEventArgs args)
+    {
     }
 }

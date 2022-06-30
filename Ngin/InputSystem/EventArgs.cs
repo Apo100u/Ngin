@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ngin.Cards;
 
 namespace Ngin.InputSystem;
 
-public class CardChosenEventArgs : EventArgs
+public class CardsChosenEventArgs : EventArgs
 {
-    public readonly Card card;
+    public readonly List<Card> chosenCards;
 
-    public CardChosenEventArgs(Card card)
+    public CardsChosenEventArgs(List<Card> chosenCards)
     {
-        this.card = card;
+        this.chosenCards = chosenCards;
     }
 }

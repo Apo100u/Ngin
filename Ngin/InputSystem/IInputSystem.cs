@@ -1,9 +1,9 @@
 ﻿using System;
-using Ngin.Characters;
+using Ngin.Cards;
 
 namespace Ngin.InputSystem;
 
 public interface IInputSystem
 {
-    public void ChooseCardFromHand(Character character, Action<CardChosenEventArgs> onCardChosen, bool allowPassing);
+    public CardChooser ChooseCardsFromSet(CardSet cardSet, Action<CardsChosenEventArgs> onCardChosen);
 }
