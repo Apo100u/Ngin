@@ -6,10 +6,12 @@ namespace Ngin.InputSystem;
 
 public class CardsChosenEventArgs : EventArgs
 {
-    public readonly List<Card> chosenCards;
+    public readonly List<Card> ChosenCards;
+    public readonly bool ChoosingPassed;
 
-    public CardsChosenEventArgs(List<Card> chosenCards)
+    public CardsChosenEventArgs(List<Card> chosenCards, bool choosingPassed)
     {
-        this.chosenCards = chosenCards;
+        ChosenCards = chosenCards;
+        ChoosingPassed = choosingPassed;
     }
 }

@@ -37,7 +37,7 @@ public abstract class CardChooser
             }
         }
         
-        onCardsChosen?.Invoke(new CardsChosenEventArgs(chosenCards));
+        onCardsChosen?.Invoke(new CardsChosenEventArgs(chosenCards, isPassRequested));
     }
 
     private bool IsChoosingDone()

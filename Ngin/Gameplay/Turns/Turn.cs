@@ -38,8 +38,8 @@ public class Turn
     {
         Character characterOnMove = charactersInMoveOrder.Dequeue();
         characterMoveState = new CharacterMoveState(characterOnMove);
-        characterMoveState.Start();
         characterMoveState.Ended += OnCharactersMoveEnded;
+        characterMoveState.Start();
     }
 
     private void OnCharactersMoveEnded()

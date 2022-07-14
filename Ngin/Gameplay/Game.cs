@@ -11,8 +11,8 @@ public class Game
 {
     public static IInputSystem InputSystem { get; private set; }
     public static ILogSystem LogSystem { get; private set; }
+    public static GameSettings Settings { get; private set; }
     
-    public readonly GameSettings Settings;
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
     
     private Turn currentTurn;
@@ -23,8 +23,8 @@ public class Game
     {
         InputSystem = inputSystem;
         LogSystem = logSystem;
-        
         Settings = settings;
+        
         this.teams = teams;
 
         for (int i = 0; i < teams.Length; i++)
