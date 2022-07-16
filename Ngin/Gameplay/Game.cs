@@ -41,6 +41,11 @@ public class Game
 
     private void StartNewTurn()
     {
+        // TODO: Crucial refactor needed!
+        // Current approach with events creates huge call stack and potential stack overflow, also the calling method never exits, so non-used objects might
+        // never get garbage collected. Consider using loops or multi-threading. Also keep in mind that things related to user input must be asynchronous, so
+        // it works in other environments than console, for example Unity.
+        
         currentTurn = new Turn(this);
         currentTurn.Ended += OnTurnEnded;
         currentTurn.Start();

@@ -33,11 +33,7 @@ public class CharacterMoveState : ITurnState
 
     private void OnCardToPlayChosen(CardsChosenEventArgs args)
     {
-        if (args.ChosenCards.Count > 1)
-        {
-            throw new UnexpectedAmountException($"Amount of chosen cards to play during characters turn ({character.Name}) was more than 1. " +
-                                                "This should be impossible.");
-        }
+        CheckForErrorsInChosenCards(args);
 
         if (!args.ChoosingPassed)
         {
@@ -54,6 +50,15 @@ public class CharacterMoveState : ITurnState
         else
         {
             End();
+        }
+    }
+
+    private void CheckForErrorsInChosenCards(CardsChosenEventArgs args)
+    {
+        if (args.ChosenCards.Count > 1)
+        {
+            throw new UnexpectedAmountException($"Amount of chosen cards to play during characters turn ({character.Name}) was more than 1. " +
+                                                "This should be impossible.");
         }
     }
 
