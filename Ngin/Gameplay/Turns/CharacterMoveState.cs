@@ -8,14 +8,14 @@ namespace Ngin.Gameplay.Turns;
 
 public class CharacterMoveState : ITurnState
 {
-    public event Action Ended;
-
     private int playedCardsCount;
     private Character character;
+    private Action onEnd;
 
-    public CharacterMoveState(Character character)
+    public CharacterMoveState(Character character, Action onEnd)
     {
         this.character = character;
+        this.onEnd = onEnd;
     }
 
     public void Start()
@@ -25,7 +25,7 @@ public class CharacterMoveState : ITurnState
 
     private void ChooseCardToPlay()
     {
-        Game.InputSystem.ChooseCardsFromSet(character.Hand, OnCardToPlayChosen)
+        Game.Input.ChooseCardsFromSet(character.Hand, OnCardToPlayChosen)
             .SetMaxAmount(1)
             .AllowPassing()
             .Start();
@@ -70,6 +70,6 @@ public class CharacterMoveState : ITurnState
 
     private void End()
     {
-        Ended?.Invoke();
+        onEnd?.Invoke();
     }
 }

@@ -4,19 +4,19 @@ namespace Ngin.Gameplay.Turns;
 
 public class TurnStartState : ITurnState
 {
-    public event Action Ended;
-
     private Turn turn;
+    private Action onEnd;
 
-    public TurnStartState(Turn turn)
+    public TurnStartState(Turn turn, Action onEnd)
     {
         this.turn = turn;
+        this.onEnd = onEnd;
     }
 
     public void Start()
     {
         int amountOfCardsToDraw = Game.Settings.CardsToDrawOnTurnStart;
         turn.Game.DrawCardsForAllCharacters(amountOfCardsToDraw);
-        Ended?.Invoke();
+        onEnd?.Invoke();
     }
 }

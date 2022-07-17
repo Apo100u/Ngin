@@ -6,12 +6,9 @@ namespace Ngin.Gameplay.Turns;
 
 public class Turn
 {
-    public event Action Ended;
-
     public readonly Game Game;
     
-    private ITurnState turnStartState;
-    private ITurnState characterMoveState;
+    private ITurnState currentState;
     private Queue<Character> charactersInMoveOrder;
 
     public Turn(Game game)
@@ -23,29 +20,24 @@ public class Turn
     {
         charactersInMoveOrder = GetCharactersInMoveOrder();
         
-        turnStartState = new TurnStartState(this);
-        turnStartState.Ended += OnTurnStartStateEnded;
-        turnStartState.Start();
+        currentState = new TurnStartState(this, OnTurnStartStateEnded);
+        currentState.Start();
     }
 
     private void OnTurnStartStateEnded()
     {
-        turnStartState.Ended -= OnTurnStartStateEnded;
         DoNextCharactersMove();
     }
 
     private void DoNextCharactersMove()
     {
         Character characterOnMove = charactersInMoveOrder.Dequeue();
-        characterMoveState = new CharacterMoveState(characterOnMove);
-        characterMoveState.Ended += OnCharactersMoveEnded;
-        characterMoveState.Start();
+        currentState = new CharacterMoveState(characterOnMove, OnCharactersMoveEnded);
+        currentState.Start();
     }
 
     private void OnCharactersMoveEnded()
     {
-        characterMoveState.Ended -= OnCharactersMoveEnded;
-
         if (charactersInMoveOrder.Count > 0)
         {
             DoNextCharactersMove();

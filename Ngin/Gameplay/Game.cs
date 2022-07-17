@@ -9,8 +9,8 @@ namespace Ngin.Gameplay;
 
 public class Game
 {
-    public static IInputSystem InputSystem { get; private set; }
-    public static ILogSystem LogSystem { get; private set; }
+    public static Input Input { get; private set; }
+    public static ILog Log { get; private set; }
     public static GameSettings Settings { get; private set; }
     
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
@@ -19,10 +19,10 @@ public class Game
     private Team[] teams;
     private List<Character> allCharacters = new();
 
-    public Game(IInputSystem inputSystem, ILogSystem logSystem, GameSettings settings, params Team[] teams)
+    public Game(Input input, ILog log, GameSettings settings, params Team[] teams)
     {
-        InputSystem = inputSystem;
-        LogSystem = logSystem;
+        Input = input;
+        Log = log;
         Settings = settings;
         
         this.teams = teams;
@@ -47,14 +47,7 @@ public class Game
         // it works in other environments than console, for example Unity.
         
         currentTurn = new Turn(this);
-        currentTurn.Ended += OnTurnEnded;
         currentTurn.Start();
-    }
-
-    private void OnTurnEnded()
-    {
-        currentTurn.Ended -= OnTurnEnded;
-        StartNewTurn();
     }
     
     public void DrawCardsForAllCharacters(int cardsCount)

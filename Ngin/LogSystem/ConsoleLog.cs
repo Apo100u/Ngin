@@ -4,7 +4,7 @@ using Ngin.Cards;
 
 namespace Ngin.LogSystem;
 
-public class ConsoleLogSystem : ILogSystem
+public class ConsoleLog : ILog
 {
     private void LogSeparator()
     {

@@ -3,7 +3,7 @@ using Ngin.Cards;
 
 namespace Ngin.LogSystem;
 
-public interface ILogSystem
+public interface ILog
 {
     public void LogInvalidInput(string invalidInput, List<string> validInputs);
     public void LogCardsToChooseFrom(Dictionary<string, Card> cardsByInput);
