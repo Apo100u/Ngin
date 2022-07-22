@@ -50,7 +50,6 @@
         <Compile Include="Characters\CharactersHelper.cs" />
         <Compile Include="Characters\Statistic.cs" />
         <Compile Include="Characters\Team.cs" />
-        <Compile Include="Errors\UnexpectedAmountException.cs" />
         <Compile Include="Gameplay\Game.cs" />
         <Compile Include="Gameplay\GameSettings.cs" />
         <Compile Include="Gameplay\RNG.cs" />
@@ -58,6 +57,9 @@
         <Compile Include="Gameplay\Turns\ITurnState.cs" />
         <Compile Include="Gameplay\Turns\Turn.cs" />
         <Compile Include="Gameplay\Turns\TurnStartState.cs" />
+        <Compile Include="InputSystem\Actions\CardChoiceAction.cs" />
+        <Compile Include="InputSystem\Actions\GameAction.cs" />
+        <Compile Include="InputSystem\Actions\PassAction.cs" />
         <Compile Include="InputSystem\Input.cs" />
         <Compile Include="LogSystem\ConsoleLog.cs" />
         <Compile Include="LogSystem\ILog.cs" />

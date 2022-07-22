@@ -26,7 +26,6 @@ internal class Program
         Team team1 = new(character1, character2, character3, character4, character5);
         Team team2 = new(character6, character7, character8, character9, character10);
 
-        Input input = new();
         ILog log = new ConsoleLog();
         GameSettings settings = new(
             cardsAllowedToPlayPerTurn: 1,
@@ -34,10 +33,9 @@ internal class Program
             cardsToDrawOnTurnStart:    1,
             maxCardsInHand:            10);
 
-        Game game = new(input, log, settings, team1, team2);
+        Game game = new(log, settings, team1, team2);
         game.Start();
         
-        //I want to write something like this:
         while (!game.IsFinished)
         {
             ShowAllowedActions();
@@ -49,25 +47,29 @@ internal class Program
             }
             else
             {
-                Console.WriteLine($"Sorry, \"{chosenAction}\" is an invalid input.");
+                Console.WriteLine("Invalid input, try again.");
             }
         }
-        
+
         // TEST ===========================================================================
     }
 
     private static void ShowAllowedActions()
     {
-        for (int i = 0; i < Game.Input.AllowedActions.Length; i++)
+        for (int i = 0; i < Game.Input.AllowedActions.Count; i++)
         {
-            Console.WriteLine($"{i}: {Game.Input.AllowedActions[i].Description}");
+            // TODO
+            
+            // TEST
+            System.Console.WriteLine($"{i} - {Game.Input.AllowedActions[i].GetType()}");
+            // TEST END
         }
     }
 
     private static bool TryGetValidUserInput(out int chosenAction)
     {
         string userInput = Console.ReadLine();
-        bool inputIsValid =  int.TryParse(userInput, out chosenAction) && Game.Input.AllowedActions.Length < chosenAction;
+        bool inputIsValid = int.TryParse(userInput, out chosenAction) && chosenAction >= 0 && chosenAction < Game.Input.AllowedActions.Count;
         return inputIsValid;
     }
 }

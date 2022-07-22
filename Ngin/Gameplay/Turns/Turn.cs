@@ -10,10 +10,12 @@ public class Turn
     
     private ITurnState currentState;
     private Queue<Character> charactersInMoveOrder;
+    private Action onEnd;
 
-    public Turn(Game game)
+    public Turn(Game game, Action onEnd)
     {
         Game = game;
+        this.onEnd = onEnd;
     }
 
     public void Start()
@@ -64,6 +66,6 @@ public class Turn
 
     private void End()
     {
-        Ended?.Invoke();
+        onEnd?.Invoke();
     }
 }
