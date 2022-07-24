@@ -2,6 +2,7 @@
 using Ngin.Characters;
 using Ngin.Gameplay;
 using Ngin.InputSystem;
+using Ngin.InputSystem.Actions;
 using Ngin.LogSystem;
 
 namespace Ngin;
@@ -58,11 +59,8 @@ internal class Program
     {
         for (int i = 0; i < Game.Input.AllowedActions.Count; i++)
         {
-            // TODO
-            
-            // TEST
-            System.Console.WriteLine($"{i} - {Game.Input.AllowedActions[i].GetType()}");
-            // TEST END
+            string actionConsoleDescription = GetGameActionDescription(Game.Input.AllowedActions[i]);
+            Console.WriteLine($"{i} - {actionConsoleDescription}");
         }
     }
 
@@ -71,5 +69,15 @@ internal class Program
         string userInput = Console.ReadLine();
         bool inputIsValid = int.TryParse(userInput, out chosenAction) && chosenAction >= 0 && chosenAction < Game.Input.AllowedActions.Count;
         return inputIsValid;
+    }
+
+    private static string GetGameActionDescription(GameAction gameAction)
+    {
+        return gameAction switch
+        {
+            PassAction passAction => "Pass",
+            CardChoiceAction cardChoiceAction => $"Choose card {cardChoiceAction.Card.Name}",
+            _ => $"ERROR: Description of GameAction of type \"{gameAction.GetType()}\" is unknown. It should be added to {nameof(GetGameActionDescription)}"
+        };
     }
 }
