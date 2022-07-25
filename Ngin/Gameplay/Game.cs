@@ -19,6 +19,7 @@ public class Game
     private Turn currentTurn;
     private Team[] teams;
     private List<Character> allCharacters = new();
+    private int turnNumber;
 
     public Game(ILog log, GameSettings settings, params Team[] teams)
     {
@@ -42,12 +43,17 @@ public class Game
 
     private void StartNewTurn()
     {
+        turnNumber++;
+        Log.TurnStart(turnNumber);
+        
         currentTurn = new Turn(this, OnTurnEnded);
         currentTurn.Start();
     }
 
     private void OnTurnEnded()
     {
+        Log.TurnEnd(turnNumber);
+        
         if (!IsFinished)
         {
             StartNewTurn();

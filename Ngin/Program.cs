@@ -1,7 +1,6 @@
 ﻿using System;
 using Ngin.Characters;
 using Ngin.Gameplay;
-using Ngin.InputSystem;
 using Ngin.InputSystem.Actions;
 using Ngin.LogSystem;
 
@@ -12,17 +11,17 @@ internal class Program
     public static void Main(string[] args)
     {
         // TEST ===========================================================================
-        System.Random random = new();
-        Character character1 = new("character1", 10, random.Next(-3, 3));
-        Character character2 = new("character2", 10, random.Next(-3, 3));
-        Character character3 = new("character3", 10, random.Next(-3, 3));
-        Character character4 = new("character4", 10, random.Next(-3, 3));
-        Character character5 = new("character5", 10, random.Next(-3, 3));
-        Character character6 = new("character6", 10, random.Next(-3, 3));
-        Character character7 = new("character7", 10, random.Next(-3, 3));
-        Character character8 = new("character8", 10, random.Next(-3, 3));
-        Character character9 = new("character9", 10, random.Next(-3, 3));
-        Character character10 = new("character10", 10, random.Next(-3, 3));
+        Random random = new();
+        Character character1 = new("Character1", 10, random.Next(-3, 3));
+        Character character2 = new("Character2", 10, random.Next(-3, 3));
+        Character character3 = new("Character3", 10, random.Next(-3, 3));
+        Character character4 = new("Character4", 10, random.Next(-3, 3));
+        Character character5 = new("Character5", 10, random.Next(-3, 3));
+        Character character6 = new("Character6", 10, random.Next(-3, 3));
+        Character character7 = new("Character7", 10, random.Next(-3, 3));
+        Character character8 = new("Character8", 10, random.Next(-3, 3));
+        Character character9 = new("Character9", 10, random.Next(-3, 3));
+        Character character10 = new("Character10", 10, random.Next(-3, 3));
 
         Team team1 = new(character1, character2, character3, character4, character5);
         Team team2 = new(character6, character7, character8, character9, character10);

@@ -34,6 +34,8 @@ public class Turn
     private void DoNextCharactersMove()
     {
         Character characterOnMove = charactersInMoveOrder.Dequeue();
+        Game.Log.CharacterMoveStart(characterOnMove);
+        
         currentState = new CharacterMoveState(characterOnMove, OnCharactersMoveEnded);
         currentState.Start();
     }

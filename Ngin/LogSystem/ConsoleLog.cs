@@ -1,49 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using Ngin.Cards;
+using Ngin.Characters;
 
 namespace Ngin.LogSystem;
 
 public class ConsoleLog : ILog
 {
-    private void LogSeparator()
+    private void Separator()
     {
-        Console.WriteLine("------------------------------------------------------------------------");
-    }
-    
-    public void LogInvalidInput(string invalidInput, List<string> validInputs)
-    {
-        LogSeparator();
-        
-        string message = $"Sorry, {invalidInput} is invalid input.";
-
-        if (validInputs?.Count > 0)
-        {
-            message = string.Concat(message, $" Valid inputs are: {string.Join(", ", validInputs)}.");
-        }
-        
-        Console.WriteLine(message);
+        Console.WriteLine("──────────────────────────────────────────────────────────────");
     }
 
-    public void LogCardsToChooseFrom(Dictionary<string, Card> cardsByInput)
+    public void TurnStart(int turnNumber)
     {
-        LogSeparator();
-        Console.WriteLine("Choose card:");
-
-        foreach (KeyValuePair<string, Card> cardByInput in cardsByInput)
-        {
-            Console.WriteLine($"Type {cardByInput.Key} to choose {cardByInput.Value.Name}.");
-        }
+        Separator();
+        Console.WriteLine($"Turn {turnNumber} started.");
     }
 
-    public void LogCardChoice(Card chosenCard)
+    public void TurnEnd(int turnNumber)
     {
-        LogSeparator();
-        Console.WriteLine($"Chosen card: {chosenCard.Name}");
+        Separator();
+        Console.WriteLine($"Turn {turnNumber} ended.");
     }
 
-    public void LogPassInput(string passInput)
+    public void CharacterMoveStart(Character characterOnMove)
     {
-        Console.WriteLine($"Type {passInput} to pass.");
+        Separator();
+        Console.WriteLine($"{characterOnMove.Name}'s move.");
     }
 }

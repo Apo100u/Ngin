@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using Ngin.Cards;
+﻿using Ngin.Characters;
 
 namespace Ngin.LogSystem;
 
 public interface ILog
 {
-    public void LogInvalidInput(string invalidInput, List<string> validInputs);
-    public void LogCardsToChooseFrom(Dictionary<string, Card> cardsByInput);
-    public void LogCardChoice(Card chosenCard);
-    public void LogPassInput(string passInput);
+    void TurnStart(int turnNumber);
+    void TurnEnd(int turnNumber);
+    void CharacterMoveStart(Character characterOnMove);
 }
