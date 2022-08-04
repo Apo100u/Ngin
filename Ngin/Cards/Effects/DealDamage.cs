@@ -6,7 +6,7 @@ public class DealDamage : CardEffect
 {
     private readonly int power;
 
-    public DealDamage(int power)
+    public DealDamage(Card card, int power) : base(card)
     {
         this.power = power;
     }

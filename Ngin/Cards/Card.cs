@@ -1,20 +1,23 @@
 ﻿using System;
 using Ngin.Cards.Effects;
+using Ngin.Characters;
 
 namespace Ngin.Cards;
 
 public class Card
 {
     public readonly string Name;
+    public readonly Character Owner;
 
     private int currentEffectToPerformIndex;
     private Action onPlayed;
     private Action onCancelled;
     private CardEffect[] effects;
 
-    public Card(string name, params CardEffect[] effects)
+    public Card(Character owner, string name, params CardEffect[] effects)
     {
         Name = name;
+        Owner = owner;
         this.effects = effects;
     }
 

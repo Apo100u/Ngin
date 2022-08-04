@@ -6,7 +6,7 @@ public class Heal : CardEffect
 {
     private readonly int power;
 
-    public Heal(int power)
+    public Heal(Card card, int power) : base(card)
     {
         this.power = power;
     }

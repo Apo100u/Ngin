@@ -6,7 +6,7 @@ public class Draw : CardEffect
 {
     private readonly int amount;
 
-    public Draw(int amount)
+    public Draw(Card card, int amount) : base(card)
     {
         this.amount = amount;
     }
