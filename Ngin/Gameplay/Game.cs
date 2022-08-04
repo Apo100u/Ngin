@@ -9,9 +9,10 @@ namespace Ngin.Gameplay;
 
 public class Game
 {
-    public static Input Input { get; private set; }
-    public static ILog Log { get; private set; }
     public static GameSettings Settings { get; private set; }
+    
+    public readonly Input Input;
+    public readonly ILog Log;
     
     public bool IsFinished { get; private set; }
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
@@ -21,12 +22,15 @@ public class Game
     private List<Character> allCharacters = new();
     private int turnNumber;
 
-    public Game(ILog log, GameSettings settings, params Team[] teams)
+    public Game(ILog log, GameSettings settings)
     {
         Input = new Input();
         Log = log;
         Settings = settings;
-        
+    }
+
+    public void SetTeams(params Team[] teams)
+    {
         this.teams = teams;
 
         for (int i = 0; i < teams.Length; i++)
