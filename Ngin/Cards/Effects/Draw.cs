@@ -1,4 +1,6 @@
-﻿namespace Ngin.Cards.Effects;
+﻿using System;
+
+namespace Ngin.Cards.Effects;
 
 public class Draw : CardEffect
 {
@@ -14,7 +16,7 @@ public class Draw : CardEffect
         throw new System.NotImplementedException();
     }
 
-    public override void Perform()
+    public override void Perform(Action onPerformed, Action onCancelled)
     {
         throw new System.NotImplementedException();
     }

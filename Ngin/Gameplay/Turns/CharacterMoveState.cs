@@ -18,10 +18,10 @@ public class CharacterMoveState : ITurnState
 
     public void Start()
     {
-        UpdateInputActions();
+        SetupInput();
     }
 
-    private void UpdateInputActions()
+    private void SetupInput()
     {
         Game.Input.ClearAllowedActions();
         Game.Input.AllowPass(OnPass);
@@ -36,23 +36,32 @@ public class CharacterMoveState : ITurnState
     private void OnCardToPlayChosen(Card card)
     {
         PlayChosenCard(card);
+    }
+    
+    private void PlayChosenCard(Card chosenCard)
+    {
+        chosenCard.Play(OnChosenCardPlayed, OnChosenCardCancelled);
+    }
+
+    private void OnChosenCardPlayed()
+    {
+        playedCardsCount++;
 
         bool canPlayNextCard = playedCardsCount < Game.Settings.CardsAllowedToPlayPerTurn;
 
         if (canPlayNextCard)
         {
-            UpdateInputActions();
+            SetupInput();
         }
         else
         {
             End();
         }
     }
-    
-    private void PlayChosenCard(Card chosenCard)
+
+    private void OnChosenCardCancelled()
     {
-        chosenCard.Play();
-        playedCardsCount++;
+        SetupInput();
     }
 
     private void End()

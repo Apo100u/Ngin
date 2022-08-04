@@ -76,7 +76,7 @@ internal class Program
         {
             PassAction passAction => "Pass",
             CardChoiceAction cardChoiceAction => $"Choose card {cardChoiceAction.Card.Name}",
-            _ => $"ERROR: Description of GameAction of type \"{gameAction.GetType()}\" is unknown. It should be added to {nameof(GetGameActionDescription)}"
+            _ => $"ERROR: Description of GameAction of type \"{gameAction.GetType()}\" is unknown. It should be added to {nameof(GetGameActionDescription)}."
         };
     }
 }
