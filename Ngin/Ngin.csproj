@@ -46,8 +46,10 @@
         <Compile Include="Cards\Effects\DealDamage.cs" />
         <Compile Include="Cards\Effects\Draw.cs" />
         <Compile Include="Cards\Effects\Heal.cs" />
-        <Compile Include="Cards\Targeting\ICardEffectTarget.cs" />
-        <Compile Include="Cards\Targeting\TargetingOption.cs" />
+        <Compile Include="Cards\Targeting\CharacterTargetingType.cs" />
+        <Compile Include="Cards\Targeting\ITargetable.cs" />
+        <Compile Include="Cards\Targeting\TargetingType.cs" />
+        <Compile Include="Cards\Targeting\TargetOption.cs" />
         <Compile Include="Characters\Character.cs" />
         <Compile Include="Characters\CharactersHelper.cs" />
         <Compile Include="Characters\Statistic.cs" />

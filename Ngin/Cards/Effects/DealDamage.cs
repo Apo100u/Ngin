@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Ngin.Cards.Targeting;
+using Ngin.Characters;
 
 namespace Ngin.Cards.Effects;
 
@@ -6,7 +9,9 @@ public class DealDamage : CardEffect
 {
     private readonly int power;
 
-    public DealDamage(Card card, int power) : base(card)
+    private CharacterTargetingType targetingType;
+
+    public DealDamage(int power)
     {
         this.power = power;
     }
@@ -16,8 +21,8 @@ public class DealDamage : CardEffect
         throw new System.NotImplementedException();
     }
 
-    public override void Perform(Action onPerformed, Action onCancelled)
+    public override void Perform(Character user, Action onPerformed, Action onCancelled)
     {
-        throw new System.NotImplementedException();
+        List<TargetOption<Character>> targetsSets = targetingType.GetAvailableTargetOptions(user);
     }
 }

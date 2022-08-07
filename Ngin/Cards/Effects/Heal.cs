@@ -1,4 +1,5 @@
 ﻿using System;
+using Ngin.Characters;
 
 namespace Ngin.Cards.Effects;
 
@@ -6,7 +7,7 @@ public class Heal : CardEffect
 {
     private readonly int power;
 
-    public Heal(Card card, int power) : base(card)
+    public Heal(int power)
     {
         this.power = power;
     }
@@ -16,7 +17,7 @@ public class Heal : CardEffect
         throw new System.NotImplementedException();
     }
 
-    public override void Perform(Action onPerformed, Action onCancelled)
+    public override void Perform(Character user, Action onPerformed, Action onCancelled)
     {
         throw new System.NotImplementedException();
     }

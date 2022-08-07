@@ -40,7 +40,7 @@ public class CharacterMoveState : ITurnState
     
     private void PlayChosenCard(Card chosenCard)
     {
-        chosenCard.Play(OnChosenCardPlayed, OnChosenCardCancelled);
+        chosenCard.Play(character, OnChosenCardPlayed, OnChosenCardCancelled);
     }
 
     private void OnChosenCardPlayed()

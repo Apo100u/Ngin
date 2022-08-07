@@ -7,22 +7,22 @@ namespace Ngin.Cards;
 public class Card
 {
     public readonly string Name;
-    public readonly Character Owner;
 
     private int currentEffectToPerformIndex;
+    private Character currentUser;
     private Action onPlayed;
     private Action onCancelled;
     private CardEffect[] effects;
 
-    public Card(Character owner, string name, params CardEffect[] effects)
+    public Card(string name, params CardEffect[] effects)
     {
         Name = name;
-        Owner = owner;
         this.effects = effects;
     }
 
-    public void Play(Action onPlayed, Action onCancelled)
+    public void Play(Character user, Action onPlayed, Action onCancelled)
     {
+        currentUser = user;
         this.onPlayed = onPlayed;
         this.onCancelled = onCancelled;
         currentEffectToPerformIndex = 0;
@@ -31,7 +31,7 @@ public class Card
 
     private void PerformNextEffect()
     {
-        effects[currentEffectToPerformIndex].Perform(OnEffectPerformed, OnEffectCancelled);
+        effects[currentEffectToPerformIndex].Perform(currentUser, OnEffectPerformed, OnEffectCancelled);
     }
 
     private void OnEffectPerformed()
@@ -60,5 +60,6 @@ public class Card
 
         onPlayed = null;
         onCancelled = null;
+        currentUser = null;
     }
 }

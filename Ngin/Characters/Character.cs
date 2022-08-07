@@ -1,9 +1,10 @@
 ﻿using Ngin.Cards;
+using Ngin.Cards.Targeting;
 using Ngin.Gameplay;
 
 namespace Ngin.Characters;
 
-public class Character
+public class Character : ITargetable
 {
     public readonly Game Game;
     public readonly string Name;

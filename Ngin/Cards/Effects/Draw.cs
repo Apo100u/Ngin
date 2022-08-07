@@ -1,4 +1,5 @@
 ﻿using System;
+using Ngin.Characters;
 
 namespace Ngin.Cards.Effects;
 
@@ -6,7 +7,7 @@ public class Draw : CardEffect
 {
     private readonly int amount;
 
-    public Draw(Card card, int amount) : base(card)
+    public Draw(int amount)
     {
         this.amount = amount;
     }
@@ -16,7 +17,7 @@ public class Draw : CardEffect
         throw new System.NotImplementedException();
     }
 
-    public override void Perform(Action onPerformed, Action onCancelled)
+    public override void Perform(Character user, Action onPerformed, Action onCancelled)
     {
         throw new System.NotImplementedException();
     }
