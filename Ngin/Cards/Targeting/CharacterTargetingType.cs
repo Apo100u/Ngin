@@ -9,13 +9,45 @@ public class CharacterTargetingType : TargetingType<Character>
     {
     }
 
-    public static CharacterTargetingType siema = new(user =>
+    /// <summary>
+    /// Allows choosing any alive character, including allies and self.
+    /// </summary>
+    public static CharacterTargetingType AliveCharacter = new(user =>
     {
-        return new List<TargetOption<Character>>();
+        List<TargetOption<Character>> targetOptions = new();
+        
+        for (int i = 0; i < user.Game.AllCharacters.Count; i++)
+        {
+            Character consideredCharacter = user.Game.AllCharacters[i];
+            
+            if (!consideredCharacter.IsDead)
+            {
+                TargetOption<Character> targetOption = new(consideredCharacter);
+                targetOptions.Add(targetOption);
+            }
+        }
+
+        return targetOptions;
     });
     
-    public static CharacterTargetingType elo = new(user =>
+    /// <summary>
+    /// Targets all characters that have a different <see cref="Team"/> than the user.
+    /// </summary>
+    public static CharacterTargetingType AllAliveEnemyCharacters = new(user =>
     {
-        return new List<TargetOption<Character>>();
+        List<Character> aliveEnemyCharacters = new();
+        
+        for (int i = 0; i < user.Game.AllCharacters.Count; i++)
+        {
+            Character consideredCharacter = user.Game.AllCharacters[i];
+            
+            if (!consideredCharacter.IsDead && consideredCharacter.Team != user.Team)
+            {
+                aliveEnemyCharacters.Add(consideredCharacter);
+            }
+        }
+
+        TargetOption<Character> targetOption = new(aliveEnemyCharacters.ToArray());
+        return new List<TargetOption<Character>>{ targetOption };
     });
 }

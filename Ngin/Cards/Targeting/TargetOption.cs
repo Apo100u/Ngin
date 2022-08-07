@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 
 namespace Ngin.Cards.Targeting;
 
 public class TargetOption<T> where T : ITargetable
 {
-    public ReadOnlyCollection<T> Targets => targets.AsReadOnly();
+    public ReadOnlyCollection<T> Targets => Array.AsReadOnly(targets);
 
-    private List<T> targets;
+    private T[] targets;
 
-    public TargetOption(List<T> targets)
+    public TargetOption(params T[] targets)
     {
         this.targets = targets;
     }

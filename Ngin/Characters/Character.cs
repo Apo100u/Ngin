@@ -14,6 +14,7 @@ public class Character : ITargetable
     public readonly CardSet Deck = new();
 
     public bool IsDead { get; private set; }
+    public Team Team { get; private set; }
     
     public Character(Game game, string name, int baseHealth, int baseInitiative)
     {
@@ -24,7 +25,11 @@ public class Character : ITargetable
         IsDead = false;
     }
 
-
+    public void SetTeam(Team team)
+    {
+        Team = team;
+    }
+    
     public void Draw(int amount)
     {
     }

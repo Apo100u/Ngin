@@ -11,9 +11,10 @@ public class DealDamage : CardEffect
 
     private CharacterTargetingType targetingType;
 
-    public DealDamage(int power)
+    public DealDamage(int power, CharacterTargetingType targetingType)
     {
         this.power = power;
+        this.targetingType = targetingType;
     }
 
     public override string GetDescription()
@@ -24,5 +25,8 @@ public class DealDamage : CardEffect
     public override void Perform(Character user, Action onPerformed, Action onCancelled)
     {
         List<TargetOption<Character>> targetsSets = targetingType.GetAvailableTargetOptions(user);
+        
+        // TODO: Choose target option through input if needed, then execute the effect on chosen target.
+        // Consider automatically executing effect if there is only one target
     }
 }
