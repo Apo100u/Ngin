@@ -12,13 +12,17 @@ public class Character
     public readonly CardSet Hand = new();
     public readonly CardSet Deck = new();
 
+    public bool IsDead { get; private set; }
+    
     public Character(Game game, string name, int baseHealth, int baseInitiative)
     {
         Game = game;
         Name = name;
         Health = new Statistic(baseHealth);
         Initiative = new Statistic(baseInitiative);
+        IsDead = false;
     }
+
 
     public void Draw(int amount)
     {
