@@ -47,7 +47,6 @@
         <Compile Include="Cards\Effects\Draw.cs" />
         <Compile Include="Cards\Effects\Heal.cs" />
         <Compile Include="Cards\Targeting\CharacterTargetingType.cs" />
-        <Compile Include="Cards\Targeting\ITargetable.cs" />
         <Compile Include="Cards\Targeting\TargetingType.cs" />
         <Compile Include="Cards\Targeting\TargetOption.cs" />
         <Compile Include="Characters\Character.cs" />

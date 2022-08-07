@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 
 namespace Ngin.Cards.Targeting;
 
-public class TargetOption<T> where T : ITargetable
+public class TargetOption<T>
 {
     public ReadOnlyCollection<T> Targets => Array.AsReadOnly(targets);
 

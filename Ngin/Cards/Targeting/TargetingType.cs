@@ -3,7 +3,7 @@ using Ngin.Characters;
 
 namespace Ngin.Cards.Targeting;
 
-public abstract class TargetingType<T> where T : ITargetable
+public abstract class TargetingType<T>
 {
     protected delegate List<TargetOption<T>> TargetsFinder(Character user);
 
