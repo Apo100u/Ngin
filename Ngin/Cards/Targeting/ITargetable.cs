@@ -1,6 +1,6 @@
 ﻿namespace Ngin.Cards.Targeting;
 
-public interface ICardEffectTarget
+public interface ITargetable
 {
     
 }
