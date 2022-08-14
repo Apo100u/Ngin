@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Ngin.Cards;
+using Ngin.Cards.Targeting;
 using Ngin.InputSystem.Actions;
 
 namespace Ngin.InputSystem;
@@ -17,10 +18,16 @@ public class Input
         allowedActions.Clear();
     }
 
-    public void AllowPass(Action onPass)
+    public void AllowPassing(Action onPassed)
     {
-        PassAction passAction = new(onPass);
+        PassAction passAction = new(onPassed);
         allowedActions.Add(passAction);
+    }
+
+    public void AllowCanceling(Action onCancelled)
+    {
+        CancelAction cancelAction = new(onCancelled);
+        allowedActions.Add(cancelAction);
     }
 
     public void AllowChoosingCardFromSet(CardSet cardSet, Action<Card> onCardChosen)
@@ -29,6 +36,14 @@ public class Input
         {
             CardChoiceAction cardChoiceAction = new(cardSet[i], onCardChosen);
             allowedActions.Add(cardChoiceAction);
+        }
+    }
+
+    public void AllowChoosingTargetsFromOptions<T>(List<TargetOption<T>> targetOptions, Action<TargetOption<T>> onTargetOptionChosen)
+    {
+        for (int i = 0; i < targetOptions.Count; i++)
+        {
+            TargetChoiceAction<T> targetChoiceAction = new(targetOptions[i], onTargetOptionChosen);
         }
     }
 }

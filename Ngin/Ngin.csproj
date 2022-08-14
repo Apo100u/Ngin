@@ -60,9 +60,11 @@
         <Compile Include="Gameplay\Turns\ITurnState.cs" />
         <Compile Include="Gameplay\Turns\Turn.cs" />
         <Compile Include="Gameplay\Turns\TurnStartState.cs" />
+        <Compile Include="InputSystem\Actions\CancelAction.cs" />
         <Compile Include="InputSystem\Actions\CardChoiceAction.cs" />
         <Compile Include="InputSystem\Actions\GameAction.cs" />
         <Compile Include="InputSystem\Actions\PassAction.cs" />
+        <Compile Include="InputSystem\Actions\TargetChoiceAction.cs" />
         <Compile Include="InputSystem\Input.cs" />
         <Compile Include="LogSystem\ConsoleLog.cs" />
         <Compile Include="LogSystem\ILog.cs" />

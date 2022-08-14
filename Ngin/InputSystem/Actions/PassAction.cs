@@ -4,15 +4,15 @@ namespace Ngin.InputSystem.Actions;
 
 public class PassAction : GameAction
 {
-    private Action onPass;
+    private Action onPassed;
 
-    public PassAction(Action onPass)
+    public PassAction(Action onPassed)
     {
-        this.onPass = onPass;
+        this.onPassed = onPassed;
     }
 
     public override void Execute()
     {
-        onPass?.Invoke();
+        onPassed?.Invoke();
     }
 }
