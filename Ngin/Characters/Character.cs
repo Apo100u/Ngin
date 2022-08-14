@@ -32,4 +32,15 @@ public class Character
     public void Draw(int amount)
     {
     }
+
+    public void DealDamage(int damage)
+    {
+        // There is a possibility that this method will grow too much, because there might be lots of things that alter damage done.
+        // If that is the case, consider making a separate class to calculate damage, something like DamageCalculator.
+        int clampedDamage = damage > Health.Current
+            ? Health.Current
+            : damage;
+        
+        Health.ChangeBy(-clampedDamage);
+    }
 }
