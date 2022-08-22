@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Ngin.Cards.Targeting;
 using Ngin.Characters;
 
 namespace Ngin.Cards.Effects;
@@ -6,10 +8,14 @@ namespace Ngin.Cards.Effects;
 public class Draw : CardEffect
 {
     private readonly int amount;
+    
+    private Action onPerformed;
+    private CharacterTargetingType targetingType;
 
-    public Draw(int amount)
+    public Draw(int amount, CharacterTargetingType targetingType)
     {
         this.amount = amount;
+        this.targetingType = targetingType;
     }
 
     public override string GetDescription()
@@ -19,6 +25,22 @@ public class Draw : CardEffect
 
     public override void Perform(Character user, Action onPerformed, Action onCancelled)
     {
-        throw new System.NotImplementedException();
+        this.onPerformed = onPerformed;
+        
+        List<TargetOption<Character>> targetOptions = targetingType.GetAvailableTargetOptions(user);
+        
+        user.Game.Input.ClearAllowedActions();
+        user.Game.Input.AllowChoosingTargetsFromOptions(targetOptions, OnTargetOptionChosen);
+        user.Game.Input.AllowCanceling(onCancelled);
+    }
+    
+    private void OnTargetOptionChosen(TargetOption<Character> targetOption)
+    {
+        for (int i = 0; i < targetOption.Targets.Count; i++)
+        {
+            targetOption.Targets[i].Draw(amount);
+        }
+        
+        onPerformed?.Invoke();
     }
 }
