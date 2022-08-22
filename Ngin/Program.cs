@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Ngin.Characters;
 using Ngin.Gameplay;
 using Ngin.InputSystem.Actions;
@@ -55,7 +56,6 @@ internal class Program
                 Console.WriteLine("Invalid input, try again.");
             }
         }
-
     }
 
     private static void ShowAllowedActions(Game game)
@@ -78,8 +78,10 @@ internal class Program
     {
         return gameAction switch
         {
-            PassAction passAction => "Pass",
-            CardChoiceAction cardChoiceAction => $"Choose card {cardChoiceAction.Card.Name}",
+            PassAction pass => "Pass",
+            CancelAction cancel => "Cancel",
+            CardChoiceAction cardChoice => $"Choose card: {cardChoice.Card.Name}",
+            TargetChoiceAction<Character> targetChoice => $"Choose target: {string.Join(", ", targetChoice.TargetOption.Targets.Select(x => x.Name))}",
             _ => $"ERROR: Description of GameAction of type \"{gameAction.GetType()}\" is unknown. It should be added to {nameof(GetGameActionDescription)}."
         };
     }

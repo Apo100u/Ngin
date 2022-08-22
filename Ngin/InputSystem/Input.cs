@@ -44,6 +44,7 @@ public class Input
         for (int i = 0; i < targetOptions.Count; i++)
         {
             TargetChoiceAction<T> targetChoiceAction = new(targetOptions[i], onTargetOptionChosen);
+            allowedActions.Add(targetChoiceAction);
         }
     }
 }
