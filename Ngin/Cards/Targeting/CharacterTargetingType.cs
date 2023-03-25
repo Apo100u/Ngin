@@ -31,7 +31,7 @@ public class CharacterTargetingType : TargetingType<Character>
     });
     
     /// <summary>
-    /// Targets all characters that have a different <see cref="Team"/> than the user.
+    /// Targets all alive characters that have a different <see cref="Team"/> than the user.
     /// </summary>
     public static CharacterTargetingType AllAliveEnemyCharacters = new(user =>
     {
