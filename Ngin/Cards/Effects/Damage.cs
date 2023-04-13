@@ -5,22 +5,22 @@ using Ngin.Characters;
 
 namespace Ngin.Cards.Effects;
 
-public class DealDamage : CardEffect
+public class Damage : CardEffect
 {
-    private readonly int power;
+    public readonly int Power;
 
     private Action onPerformed;
     private CharacterTargetingType targetingType;
 
-    public DealDamage(int power, CharacterTargetingType targetingType)
+    public Damage(int power, CharacterTargetingType targetingType)
     {
-        this.power = power;
+        Power = power;
         this.targetingType = targetingType;
     }
 
     public override string GetDescription()
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public override void Perform(Character user, Action onPerformed, Action onCancelled)
@@ -38,7 +38,7 @@ public class DealDamage : CardEffect
     {
         for (int i = 0; i < targetOption.Targets.Count; i++)
         {
-            targetOption.Targets[i].DealDamage(power);
+            targetOption.Targets[i].ApplyDamage(this);
         }
         
         onPerformed?.Invoke();

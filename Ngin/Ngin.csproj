@@ -43,7 +43,7 @@
         <Compile Include="Cards\Card.cs" />
         <Compile Include="Cards\CardSet.cs" />
         <Compile Include="Cards\Effects\CardEffect.cs" />
-        <Compile Include="Cards\Effects\DealDamage.cs" />
+        <Compile Include="Cards\Effects\Damage.cs" />
         <Compile Include="Cards\Effects\Draw.cs" />
         <Compile Include="Cards\Effects\Heal.cs" />
         <Compile Include="Cards\Targeting\CharacterTargetingType.cs" />
@@ -60,6 +60,8 @@
         <Compile Include="Gameplay\Turns\ITurnState.cs" />
         <Compile Include="Gameplay\Turns\Turn.cs" />
         <Compile Include="Gameplay\Turns\TurnStartState.cs" />
+        <Compile Include="Helpers\DamageCalculator.cs" />
+        <Compile Include="Helpers\HealCalculator.cs" />
         <Compile Include="InputSystem\Actions\CancelAction.cs" />
         <Compile Include="InputSystem\Actions\CardChoiceAction.cs" />
         <Compile Include="InputSystem\Actions\GameAction.cs" />

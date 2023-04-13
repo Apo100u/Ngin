@@ -1,5 +1,7 @@
 ﻿using Ngin.Cards;
+using Ngin.Cards.Effects;
 using Ngin.Gameplay;
+using Ngin.Helpers;
 
 namespace Ngin.Characters;
 
@@ -33,14 +35,15 @@ public class Character
     {
     }
 
-    public void DealDamage(int damage)
+    public void ApplyDamage(Damage damage)
     {
-        // There is a possibility that this method will grow too much, because there might be lots of things that alter damage done.
-        // If that is the case, consider making a separate class to calculate damage, something like DamageCalculator.
-        int clampedDamage = damage > Health.Current
-            ? Health.Current
-            : damage;
-        
-        Health.ChangeBy(-clampedDamage);
+        int damagePower = new DamageCalculator(this, damage).CalculateDamage();
+        Health.ChangeBy(-damagePower);
+    }
+
+    public void ApplyHeal(Heal heal)
+    {
+        int healPower = new HealCalculator(this, heal).CalculateHeal();
+        Health.ChangeBy(healPower);
     }
 }

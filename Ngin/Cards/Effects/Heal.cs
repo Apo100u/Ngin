@@ -7,14 +7,14 @@ namespace Ngin.Cards.Effects;
 
 public class Heal : CardEffect
 {
-    private readonly int power;
+    public readonly int Power;
     
     private Action onPerformed;
     private CharacterTargetingType targetingType;
 
     public Heal(int power, CharacterTargetingType targetingType)
     {
-        this.power = power;
+        Power = power;
         this.targetingType = targetingType;
     }
 
@@ -38,7 +38,7 @@ public class Heal : CardEffect
     {
         for (int i = 0; i < targetOption.Targets.Count; i++)
         {
-            targetOption.Targets[i].Heal(power);
+            targetOption.Targets[i].ApplyHeal(this);
         }
         
         onPerformed?.Invoke();
