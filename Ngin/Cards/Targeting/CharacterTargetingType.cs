@@ -8,6 +8,19 @@ public class CharacterTargetingType : TargetingType<Character>
     protected CharacterTargetingType(TargetsFinder targetsFinder) : base(targetsFinder)
     {
     }
+    
+    /// <summary>
+    /// Targets the character that is the user.
+    /// </summary>
+    public static CharacterTargetingType User = new(user =>
+    {
+        List<TargetOption<Character>> targetOptions = new()
+        {
+            new TargetOption<Character>(user)
+        };
+        
+        return targetOptions;
+    });
 
     /// <summary>
     /// Allows choosing any alive character, including allies and self.
