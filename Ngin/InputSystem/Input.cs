@@ -30,11 +30,11 @@ public class Input
         allowedActions.Add(cancelAction);
     }
 
-    public void AllowChoosingCardFromSet(CardSet cardSet, Action<Card> onCardChosen)
+    public void AllowChoosingCardFromCollection(IEnumerable<Card> cardCollection, Action<Card> onCardChosen)
     {
-        for (int i = 0; i < cardSet.Count; i++)
+        foreach (Card card in cardCollection)
         {
-            CardChoiceAction cardChoiceAction = new(cardSet[i], onCardChosen);
+            CardChoiceAction cardChoiceAction = new(card, onCardChosen);
             allowedActions.Add(cardChoiceAction);
         }
     }
