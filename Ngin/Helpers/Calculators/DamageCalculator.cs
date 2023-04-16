@@ -14,7 +14,7 @@ public class DamageCalculator
         this.damage = damage;
     }
 
-    public int CalculateDamage()
+    public int CalculateDamagePower()
     {
         int calculatedDamagePower = damage.Power > damagedCharacter.Health.Current
             ? damagedCharacter.Health.Current

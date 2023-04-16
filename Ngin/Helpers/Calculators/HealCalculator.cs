@@ -14,7 +14,7 @@ public class HealCalculator
         this.heal = heal;
     }
 
-    public int CalculateHeal()
+    public int CalculateHealPower()
     {
         int missingHealth = healedCharacter.Health.Base - healedCharacter.Health.Current;
         
