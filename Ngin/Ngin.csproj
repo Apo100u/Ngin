@@ -60,8 +60,8 @@
         <Compile Include="Gameplay\Turns\ITurnState.cs" />
         <Compile Include="Gameplay\Turns\Turn.cs" />
         <Compile Include="Gameplay\Turns\TurnStartState.cs" />
-        <Compile Include="Helpers\DamageCalculator.cs" />
-        <Compile Include="Helpers\HealCalculator.cs" />
+        <Compile Include="Helpers\Calculators\DamageCalculator.cs" />
+        <Compile Include="Helpers\Calculators\HealCalculator.cs" />
         <Compile Include="InputSystem\Actions\CancelAction.cs" />
         <Compile Include="InputSystem\Actions\CardChoiceAction.cs" />
         <Compile Include="InputSystem\Actions\GameAction.cs" />
