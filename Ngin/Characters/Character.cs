@@ -35,6 +35,20 @@ public class Character
     public void ApplyDraw(Draw draw)
     {
         int cardsDrawnCount = new DrawCalculator(this, draw).CalculateCardsDrawnCount();
+
+        for (int i = 0; i < cardsDrawnCount; i++)
+        {
+            if (Deck.Count > 0)
+            {
+                Card drawnCard = Deck.Pop();
+                Hand.Add(drawnCard);
+            }
+            else
+            {
+                throw new System.NotImplementedException();
+                // ...log that card couldn't be drawn and do appropriate action
+            }
+        }
     }
 
     public void ApplyDamage(Damage damage)

@@ -7,14 +7,14 @@ namespace Ngin.Cards.Effects;
 
 public class Draw : CardEffect
 {
-    private readonly int amount;
+    public readonly int Count;
     
     private Action onPerformed;
     private CharacterTargetingType targetingType;
 
-    public Draw(int amount, CharacterTargetingType targetingType)
+    public Draw(int count, CharacterTargetingType targetingType)
     {
-        this.amount = amount;
+        Count = count;
         this.targetingType = targetingType;
     }
 
@@ -38,7 +38,7 @@ public class Draw : CardEffect
     {
         for (int i = 0; i < targetOption.Targets.Count; i++)
         {
-            targetOption.Targets[i].Draw(amount);
+            targetOption.Targets[i].ApplyDraw(this);
         }
         
         onPerformed?.Invoke();

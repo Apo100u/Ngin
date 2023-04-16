@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Ngin.Cards.Effects;
+using Ngin.Cards.Targeting;
 using Ngin.Characters;
 using Ngin.Gameplay.Turns;
 using Ngin.InputSystem;
@@ -66,9 +68,11 @@ public class Game
     
     public void DrawCardsForAllCharacters(int cardsCount)
     {
+        Draw draw = new(cardsCount, CharacterTargetingType.User);
+        
         for (int i = 0; i < allCharacters.Count; i++)
         {
-            allCharacters[i].Draw(cardsCount);
+            allCharacters[i].ApplyDraw(draw);
         }
     }
 }
