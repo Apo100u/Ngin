@@ -1,7 +1,7 @@
 ﻿using Ngin.Cards.Effects;
 using Ngin.Characters;
 
-namespace Ngin.Helpers;
+namespace Ngin.Helpers.Calculators;
 
 public class HealCalculator
 {
