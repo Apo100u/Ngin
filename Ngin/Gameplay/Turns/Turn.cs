@@ -56,7 +56,7 @@ public class Turn
     {
         Queue<Character> charactersInOrder = new();
         List<Character> allCharacters = new(Game.AllCharacters);
-        allCharacters.Sort(CharactersHelper.InitiativeComparisonWithRandomOnEqual());
+        allCharacters.Sort(RNG.InitiativeComparisonWithRandomOnEqual());
 
         for (int i = allCharacters.Count - 1; i >= 0; i--)
         {
