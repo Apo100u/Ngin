@@ -57,6 +57,7 @@
         <Compile Include="Gameplay\Turns\CharacterMoveState.cs" />
         <Compile Include="Gameplay\Turns\ITurnState.cs" />
         <Compile Include="Gameplay\Turns\Turn.cs" />
+        <Compile Include="Gameplay\Turns\TurnCycle.cs" />
         <Compile Include="Gameplay\Turns\TurnStartState.cs" />
         <Compile Include="Helpers\Calculators\DamageCalculator.cs" />
         <Compile Include="Helpers\Calculators\DrawCalculator.cs" />

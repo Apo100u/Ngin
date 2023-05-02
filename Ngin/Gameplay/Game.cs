@@ -18,15 +18,15 @@ public class Game
     
     public bool IsFinished { get; private set; }
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
-    
-    private Turn currentTurn;
+
+    private TurnCycle turnCycle;
     private Team[] teams;
     private List<Character> allCharacters = new();
-    private int turnNumber;
 
     public Game(ILog log, GameSettings settings)
     {
         Input = new Input();
+        turnCycle = new TurnCycle(this);
         Log = log;
         Settings = settings;
     }
@@ -34,6 +34,7 @@ public class Game
     public void SetTeams(params Team[] teams)
     {
         this.teams = teams;
+        allCharacters.Clear();
 
         for (int i = 0; i < teams.Length; i++)
         {
@@ -43,29 +44,9 @@ public class Game
 
     public void Start()
     {
-        DrawCardsForAllCharacters(Settings.CardsToDrawOnGameStart);
-        StartNewTurn();
+        turnCycle.Start();
     }
 
-    private void StartNewTurn()
-    {
-        turnNumber++;
-        Log.TurnStart(turnNumber);
-        
-        currentTurn = new Turn(this, OnTurnEnded);
-        currentTurn.Start();
-    }
-
-    private void OnTurnEnded()
-    {
-        Log.TurnEnd(turnNumber);
-        
-        if (!IsFinished)
-        {
-            StartNewTurn();
-        }
-    }
-    
     public void DrawCardsForAllCharacters(int cardsCount)
     {
         Draw draw = new(cardsCount, CharacterTargetingType.User);
