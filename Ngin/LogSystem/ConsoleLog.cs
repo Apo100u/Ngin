@@ -1,30 +1,31 @@
 ﻿using System;
 using Ngin.Characters;
+using Ngin.Gameplay.Turns;
 
 namespace Ngin.LogSystem;
 
-public class ConsoleLog : ILog
+public class ConsoleLog : Log
 {
     private void Separator()
     {
         Console.WriteLine("──────────────────────────────────────────────────────────────");
     }
 
-    public void TurnStart(int turnNumber)
+    protected override void OnTurnStarting(Turn turn)
     {
         Separator();
-        Console.WriteLine($"Turn {turnNumber} started.");
+        Console.WriteLine($"Turn {turn.Number} started.");
     }
 
-    public void TurnEnd(int turnNumber)
+    protected override void OnTurnEnded(Turn turn)
     {
         Separator();
-        Console.WriteLine($"Turn {turnNumber} ended.");
+        Console.WriteLine($"Turn {turn.Number} ended.");
     }
 
-    public void CharacterMoveStart(Character characterOnMove)
+    protected override void OnCharacterMoveStarted(Character character)
     {
         Separator();
-        Console.WriteLine($"{characterOnMove.Name}'s move.");
+        Console.WriteLine($"{character.Name}'s move.");
     }
 }

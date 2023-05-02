@@ -13,14 +13,16 @@ internal class Program
     {
         // TEST ===========================================================================
         
-        ILog log = new ConsoleLog();
         GameSettings settings = new(
             cardsAllowedToPlayPerTurn: 1,
             cardsToDrawOnGameStart:    4,
             cardsToDrawOnTurnStart:    1,
             maxCardsInHand:            10);
         
-        Game game = new(log, settings);
+        Game game = new(settings);
+        
+        ConsoleLog consoleLog = new();
+        consoleLog.StartLogging(game);
         
         Random random = new();
         Character character1  = new(game, "Character1", 10, random.Next(-3, 3));

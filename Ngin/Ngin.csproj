@@ -69,7 +69,7 @@
         <Compile Include="InputSystem\Actions\TargetChoiceAction.cs" />
         <Compile Include="InputSystem\Input.cs" />
         <Compile Include="LogSystem\ConsoleLog.cs" />
-        <Compile Include="LogSystem\ILog.cs" />
+        <Compile Include="LogSystem\Log.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

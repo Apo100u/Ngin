@@ -7,14 +7,18 @@ namespace Ngin.Gameplay.Turns;
 public class Turn
 {
     public readonly TurnCycle TurnCycle;
+    public readonly int Number;
     
     private ITurnState currentState;
     private Queue<Character> charactersInMoveOrder;
+    private Action<Character> onCharacterMoveStarted;
     private Action onEnd;
 
-    public Turn(TurnCycle turnCycle, Action onEnd)
+    public Turn(TurnCycle turnCycle, int number, Action<Character> onCharacterMoveStarted, Action onEnd)
     {
         TurnCycle = turnCycle;
+        Number = number;
+        this.onCharacterMoveStarted = onCharacterMoveStarted;
         this.onEnd = onEnd;
     }
 
@@ -34,7 +38,8 @@ public class Turn
     private void DoNextCharactersMove()
     {
         Character characterOnMove = charactersInMoveOrder.Dequeue();
-        TurnCycle.Game.Log.CharacterMoveStart(characterOnMove);
+        
+        onCharacterMoveStarted?.Invoke(characterOnMove);
         
         currentState = new CharacterMoveState(characterOnMove, OnCharactersMoveEnded);
         currentState.Start();

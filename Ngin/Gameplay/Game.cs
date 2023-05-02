@@ -5,7 +5,6 @@ using Ngin.Cards.Targeting;
 using Ngin.Characters;
 using Ngin.Gameplay.Turns;
 using Ngin.InputSystem;
-using Ngin.LogSystem;
 
 namespace Ngin.Gameplay;
 
@@ -14,20 +13,18 @@ public class Game
     public static GameSettings Settings { get; private set; }
     
     public readonly Input Input;
-    public readonly ILog Log;
+    public readonly TurnCycle TurnCycle;
     
     public bool IsFinished { get; private set; }
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
 
-    private TurnCycle turnCycle;
     private Team[] teams;
     private List<Character> allCharacters = new();
 
-    public Game(ILog log, GameSettings settings)
+    public Game(GameSettings settings)
     {
         Input = new Input();
-        turnCycle = new TurnCycle(this);
-        Log = log;
+        TurnCycle = new TurnCycle(this);
         Settings = settings;
     }
 
@@ -44,7 +41,7 @@ public class Game
 
     public void Start()
     {
-        turnCycle.Start();
+        TurnCycle.Start();
     }
 
     public void DrawCardsForAllCharacters(int cardsCount)

@@ -1,0 +1,19 @@
+﻿using Ngin.Characters;
+using Ngin.Gameplay;
+using Ngin.Gameplay.Turns;
+
+namespace Ngin.LogSystem;
+
+public abstract class Log
+{
+    public void StartLogging(Game game)
+    {
+        game.TurnCycle.TurnStarting += OnTurnStarting;
+        game.TurnCycle.TurnEnded += OnTurnEnded;
+        game.TurnCycle.CharacterMoveStarted += OnCharacterMoveStarted;
+    }
+    
+    protected abstract void OnTurnStarting(Turn turn);
+    protected abstract void OnTurnEnded(Turn turn);
+    protected abstract void OnCharacterMoveStarted(Character character);
+}
