@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Ngin.Cards;
 using Ngin.Cards.Effects;
+using Ngin.Cards.Targeting;
 using Ngin.Gameplay;
 using Ngin.Helpers.Calculators;
 
@@ -8,6 +10,8 @@ namespace Ngin.Characters;
 
 public class Character
 {
+    public event Action<Character> TryingToDrawFromEmptyDeck;
+    
     public readonly Game Game;
     public readonly string Name;
     public readonly Statistic Health;
@@ -45,8 +49,9 @@ public class Character
             }
             else
             {
-                throw new System.NotImplementedException();
-                // ...log that card couldn't be drawn and do appropriate action
+                TryingToDrawFromEmptyDeck?.Invoke(this);
+                Damage damageForDrawWithEmptyDeck = new(Health.Current, CharacterTargetingType.User);
+                ApplyDamage(damageForDrawWithEmptyDeck);
             }
         }
     }

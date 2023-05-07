@@ -15,31 +15,26 @@ internal class Program
         
         GameSettings settings = new(
             cardsAllowedToPlayPerTurn: 1,
-            cardsToDrawOnGameStart:    4,
+            cardsToDrawOnGameStart:    3,
             cardsToDrawOnTurnStart:    1,
-            maxCardsInHand:            10);
+            maxCardsInHand:            5);
         
         Game game = new(settings);
         
-        ConsoleLog consoleLog = new();
-        consoleLog.StartLogging(game);
-        
         Random random = new();
-        Character character1  = new(game, "Character1", 10, random.Next(-3, 3));
-        Character character2  = new(game, "Character2", 10, random.Next(-3, 3));
-        Character character3  = new(game, "Character3", 10, random.Next(-3, 3));
-        Character character4  = new(game, "Character4", 10, random.Next(-3, 3));
-        Character character5  = new(game, "Character5", 10, random.Next(-3, 3));
-        Character character6  = new(game, "Character6", 10, random.Next(-3, 3));
-        Character character7  = new(game, "Character7", 10, random.Next(-3, 3));
-        Character character8  = new(game, "Character8", 10, random.Next(-3, 3));
-        Character character9  = new(game, "Character9", 10, random.Next(-3, 3));
-        Character character10 = new(game, "Character10", 10, random.Next(-3, 3));
+        Character character1  = new(game, "Team1.Character1", 10, random.Next(-3, 3));
+        Character character2  = new(game, "Team1.Character2", 10, random.Next(-3, 3));
+        Character character3  = new(game, "Team2.Character3", 10, random.Next(-3, 3));
+        Character character4  = new(game, "Team2.Character4", 10, random.Next(-3, 3));
 
-        Team team1 = new(character1, character2, character3, character4, character5);
-        Team team2 = new(character6, character7, character8, character9, character10);
+        Team team1 = new(character1, character2);
+        Team team2 = new(character3, character4);
         
         game.SetTeams(team1, team2);
+        
+        ConsoleLog consoleLog = new();
+        consoleLog.StartLogging(game);
+
         game.Start();
         
         // TEST ===========================================================================

@@ -5,11 +5,11 @@ namespace Ngin.Gameplay.Turns;
 
 public class TurnCycle
 {
-    public readonly Game Game;
-
     public event Action<Turn> TurnStarting;
     public event Action<Turn> TurnEnded;
     public event Action<Character> CharacterMoveStarted;
+
+    public readonly Game Game;
 
     private Turn currentTurn;
     private int turnNumber;

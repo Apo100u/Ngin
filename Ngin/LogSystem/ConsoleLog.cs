@@ -28,4 +28,10 @@ public class ConsoleLog : Log
         Separator();
         Console.WriteLine($"{character.Name}'s move.");
     }
+
+    protected override void OnCharacterTryingToDrawFromEmptyDeck(Character character)
+    {
+        Separator();
+        Console.WriteLine($"Character {character.Name} is trying to draw a card from empty deck. This will apply damage equal to their current health.");
+    }
 }
