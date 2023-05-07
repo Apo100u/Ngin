@@ -11,7 +11,8 @@ namespace Ngin.Characters;
 public class Character
 {
     public event Action<Character> TryingToDrawFromEmptyDeck;
-    
+    public event Action<Character> Died;
+
     public readonly Game Game;
     public readonly string Name;
     public readonly Statistic Health;
@@ -42,29 +43,44 @@ public class Character
 
         for (int i = 0; i < cardsDrawnCount; i++)
         {
-            if (Deck.Count > 0)
+            if (!IsDead)
             {
-                Card drawnCard = Deck.Pop();
-                Hand.Add(drawnCard);
-            }
-            else
-            {
-                TryingToDrawFromEmptyDeck?.Invoke(this);
-                Damage damageForDrawWithEmptyDeck = new(Health.Current, CharacterTargetingType.User);
-                ApplyDamage(damageForDrawWithEmptyDeck);
+                if (Deck.Count > 0)
+                {
+                    Card drawnCard = Deck.Pop();
+                    Hand.Add(drawnCard);
+                }
+                else
+                {
+                    TryingToDrawFromEmptyDeck?.Invoke(this);
+                    Damage damageForDrawWithEmptyDeck = new(Health.Current, CharacterTargetingType.User);
+                    ApplyDamage(damageForDrawWithEmptyDeck);
+                }
             }
         }
     }
 
     public void ApplyDamage(Damage damage)
     {
-        int damagePower = new DamageCalculator(this, damage).CalculateDamagePower();
-        Health.ChangeBy(-damagePower);
+        if (!IsDead)
+        {
+            int damagePower = new DamageCalculator(this, damage).CalculateDamagePower();
+            Health.ChangeBy(-damagePower);
+
+            if (Health.Current <= 0 && !IsDead)
+            {
+                IsDead = true;
+                Died?.Invoke(this);
+            }
+        }
     }
 
     public void ApplyHeal(Heal heal)
     {
-        int healPower = new HealCalculator(this, heal).CalculateHealPower();
-        Health.ChangeBy(healPower);
+        if (!IsDead)
+        {
+            int healPower = new HealCalculator(this, heal).CalculateHealPower();
+            Health.ChangeBy(healPower);
+        }
     }
 }

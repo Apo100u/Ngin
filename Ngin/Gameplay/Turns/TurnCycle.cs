@@ -21,7 +21,7 @@ public class TurnCycle
 
     public void Start()
     {
-        Game.DrawCardsForAllCharacters(Game.Settings.CardsToDrawOnGameStart);
+        Game.DrawCardsForAllAliveCharacters(Game.Settings.CardsToDrawOnGameStart);
         StartNewTurn();
     }
     

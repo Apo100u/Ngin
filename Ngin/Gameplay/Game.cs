@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Ngin.Cards.Effects;
 using Ngin.Cards.Targeting;
@@ -10,6 +11,8 @@ namespace Ngin.Gameplay;
 
 public class Game
 {
+    public event Action<Game> Finished;
+    
     public static GameSettings Settings { get; private set; }
     
     public readonly Input Input;
@@ -41,16 +44,33 @@ public class Game
 
     public void Start()
     {
+        for (int i = 0; i < allCharacters.Count; i++)
+        {
+            allCharacters[i].Died += OnCharacterDied;
+        }
+        
         TurnCycle.Start();
     }
 
-    public void DrawCardsForAllCharacters(int cardsCount)
+    public void DrawCardsForAllAliveCharacters(int cardsCount)
     {
         Draw draw = new(cardsCount, CharacterTargetingType.User);
         
         for (int i = 0; i < allCharacters.Count; i++)
         {
-            allCharacters[i].ApplyDraw(draw);
+            if (!allCharacters[i].IsDead)
+            {
+                allCharacters[i].ApplyDraw(draw);
+            }
+        }
+    }
+
+    private void OnCharacterDied(Character character)
+    {
+        if (character.Team.AllCharactersDead())
+        {
+            IsFinished = true;
+            Finished?.Invoke(this);
         }
     }
 }

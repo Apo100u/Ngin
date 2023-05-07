@@ -16,7 +16,7 @@ public class TurnStartState : ITurnState
     public void Start()
     {
         int amountOfCardsToDraw = Game.Settings.CardsToDrawOnTurnStart;
-        turn.TurnCycle.Game.DrawCardsForAllCharacters(amountOfCardsToDraw);
+        turn.TurnCycle.Game.DrawCardsForAllAliveCharacters(amountOfCardsToDraw);
         onEnd?.Invoke();
     }
 }

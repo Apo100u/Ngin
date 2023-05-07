@@ -13,4 +13,20 @@ public class Team
             characters[i].SetTeam(this);
         }
     }
+
+    public bool AllCharactersDead()
+    {
+        bool allCharactersDead = true;
+
+        for (int i = 0; i < Characters.Length; i++)
+        {
+            if (!Characters[i].IsDead)
+            {
+                allCharactersDead = false;
+                break;
+            }
+        }
+
+        return allCharactersDead;
+    }
 }

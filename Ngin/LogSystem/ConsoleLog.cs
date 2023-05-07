@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Ngin.Characters;
+using Ngin.Gameplay;
 using Ngin.Gameplay.Turns;
 
 namespace Ngin.LogSystem;
@@ -9,6 +11,14 @@ public class ConsoleLog : Log
     private void Separator()
     {
         Console.WriteLine("──────────────────────────────────────────────────────────────");
+    }
+
+    protected override void GameFinished(Game game)
+    {
+        Separator();
+
+        Team winningTeam = game.AllCharacters.First(x => !x.Team.AllCharactersDead()).Team;
+        Console.WriteLine($"Game ended! Winner team: {string.Join(", ", winningTeam.Characters.Select(x => x.Name))}.");
     }
 
     protected override void OnTurnStarting(Turn turn)
@@ -33,5 +43,11 @@ public class ConsoleLog : Log
     {
         Separator();
         Console.WriteLine($"Character {character.Name} is trying to draw a card from empty deck. This will apply damage equal to their current health.");
+    }
+
+    protected override void OnCharacterDied(Character character)
+    {
+        Separator();
+        Console.WriteLine($"Character {character.Name} has died.");
     }
 }
