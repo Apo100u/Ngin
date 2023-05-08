@@ -62,6 +62,7 @@
         <Compile Include="Helpers\Calculators\DamageCalculator.cs" />
         <Compile Include="Helpers\Calculators\DrawCalculator.cs" />
         <Compile Include="Helpers\Calculators\HealCalculator.cs" />
+        <Compile Include="Helpers\Cards\CardsFactory.cs" />
         <Compile Include="InputSystem\Actions\CancelAction.cs" />
         <Compile Include="InputSystem\Actions\CardChoiceAction.cs" />
         <Compile Include="InputSystem\Actions\GameAction.cs" />

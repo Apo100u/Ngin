@@ -69,8 +69,15 @@ public class Game
     {
         if (character.Team.AllCharactersDead())
         {
-            IsFinished = true;
-            Finished?.Invoke(this);
+            FinishGame();
         }
+    }
+
+    private void FinishGame()
+    {
+        IsFinished = true;
+        Finished?.Invoke(this);
+
+        // TODO (BUG): Game is not finished properly. After finishing once, the remaining actions are still executed and the game can "finish" again.
     }
 }
