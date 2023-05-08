@@ -16,15 +16,16 @@ public class Character
     public event Action<Character> TryingToDrawFromEmptyDeck;
     public event Action<Character> Died;
 
-    public readonly Game Game;
     public readonly string Name;
+    public readonly Game Game;
     public readonly Statistic Health;
     public readonly Statistic Initiative;
 
-    public List<Card> Hand { get; private set; }
-    public Stack<Card> Deck { get; private set; }
     public bool IsDead { get; private set; }
     public Team Team { get; private set; }
+    public List<Card> Hand { get; private set; }
+    public Stack<Card> Deck { get; private set; }
+    public Stack<Card> UsedCards { get; private set; }
     
     public Character(Game game, string name, int baseHealth, int baseInitiative, IEnumerable<Card> deckCards)
     {
@@ -34,6 +35,7 @@ public class Character
         Initiative = new Statistic(baseInitiative);
         Hand = new List<Card>();
         Deck = new Stack<Card>(deckCards);
+        UsedCards = new Stack<Card>();
         IsDead = false;
     }
 
@@ -45,6 +47,17 @@ public class Character
     public void ShuffleDeck()
     {
         Deck = RNG.ShuffleCollection(Deck);
+    }
+    
+    public void PlayCardFromHand(Card card, Action onChosenCardPlayed, Action onChosenCardCancelled)
+    {
+        card.Play(this, onChosenCardPlayed, onChosenCardCancelled);
+    }
+    
+    public void MoveCardFromHandToUsedCards(Card cardFromHand)
+    {
+        Hand.Remove(cardFromHand);
+        UsedCards.Push(cardFromHand);
     }
     
     public void ApplyDraw(Draw draw)

@@ -7,6 +7,7 @@ namespace Ngin.Gameplay.Turns;
 public class CharacterMoveState : ITurnState
 {
     private int playedCardsCount;
+    private Card chosenCard;
     private Character character;
     private Action onEnd;
 
@@ -35,16 +36,14 @@ public class CharacterMoveState : ITurnState
 
     private void OnCardToPlayChosen(Card card)
     {
-        PlayChosenCard(card);
-    }
-    
-    private void PlayChosenCard(Card chosenCard)
-    {
-        chosenCard.Play(character, OnChosenCardPlayed, OnChosenCardCancelled);
+        chosenCard = card;
+        character.PlayCardFromHand(card, OnChosenCardPlayed, OnChosenCardCancelled);
     }
 
     private void OnChosenCardPlayed()
     {
+        character.MoveCardFromHandToUsedCards(chosenCard);
+        
         playedCardsCount++;
 
         bool canPlayNextCard = playedCardsCount < Game.Settings.CardsAllowedToPlayPerTurn;
