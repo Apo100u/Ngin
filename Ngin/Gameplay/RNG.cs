@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Ngin.Cards;
 using Ngin.Characters;
 
 namespace Ngin.Gameplay;
@@ -32,11 +35,29 @@ public static class RNG
             return comparison;
         };
     }
+
+    /// <summary>
+    /// Randomly changes order of elements in the collection.
+    /// </summary>
+    public static Stack<T> ShuffleCollection<T>(IEnumerable<T> collection)
+    {
+        List<T> collectionList = collection.ToList();
+        
+        int i = collectionList.Count;
+        while (i > 1)
+        {
+            i--;
+            int randomIndex = random.Next(i + 1);
+            (collectionList[randomIndex], collectionList[i]) = (collectionList[i], collectionList[randomIndex]);
+        }
+
+        return new Stack<T>(collectionList);
+    }
     
     /// <summary>
     /// Randomly returns -1 or 1.
     /// </summary>
-    public static int NextSign()
+    private static int NextSign()
     {
         return random.NextDouble() > 0.5
             ? 1

@@ -47,8 +47,10 @@ public class Game
         for (int i = 0; i < allCharacters.Count; i++)
         {
             allCharacters[i].Died += OnCharacterDied;
+            allCharacters[i].ShuffleDeck();
         }
         
+        DrawCardsForAllAliveCharacters(Settings.CardsToDrawOnGameStart);
         TurnCycle.Start();
     }
 

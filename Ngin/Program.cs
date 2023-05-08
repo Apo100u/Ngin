@@ -2,6 +2,7 @@
 using System.Linq;
 using Ngin.Characters;
 using Ngin.Gameplay;
+using Ngin.Helpers.Cards;
 using Ngin.InputSystem.Actions;
 using Ngin.LogSystem;
 
@@ -15,17 +16,17 @@ internal class Program
         
         GameSettings settings = new(
             cardsAllowedToPlayPerTurn: 1,
-            cardsToDrawOnGameStart:    3,
+            cardsToDrawOnGameStart:    2,
             cardsToDrawOnTurnStart:    1,
             maxCardsInHand:            5);
         
         Game game = new(settings);
         
         Random random = new();
-        Character character1  = new(game, "Team1.Character1", 10, random.Next(-3, 3));
-        Character character2  = new(game, "Team1.Character2", 10, random.Next(-3, 3));
-        Character character3  = new(game, "Team2.Character3", 10, random.Next(-3, 3));
-        Character character4  = new(game, "Team2.Character4", 10, random.Next(-3, 3));
+        Character character1  = new(game, "Team1.Character1", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
+        Character character2  = new(game, "Team1.Character2", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
+        Character character3  = new(game, "Team2.Character3", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
+        Character character4  = new(game, "Team2.Character4", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
 
         Team team1 = new(character1, character2);
         Team team2 = new(character3, character4);

@@ -17,24 +17,31 @@ public class Character
     public readonly string Name;
     public readonly Statistic Health;
     public readonly Statistic Initiative;
-    public readonly List<Card> Hand = new();
-    public readonly Stack<Card> Deck = new();
 
+    public List<Card> Hand { get; private set; }
+    public Stack<Card> Deck { get; private set; }
     public bool IsDead { get; private set; }
     public Team Team { get; private set; }
     
-    public Character(Game game, string name, int baseHealth, int baseInitiative)
+    public Character(Game game, string name, int baseHealth, int baseInitiative, IEnumerable<Card> deckCards)
     {
         Game = game;
         Name = name;
         Health = new Statistic(baseHealth);
         Initiative = new Statistic(baseInitiative);
+        Hand = new List<Card>();
+        Deck = new Stack<Card>(deckCards);
         IsDead = false;
     }
 
     public void SetTeam(Team team)
     {
         Team = team;
+    }
+
+    public void ShuffleDeck()
+    {
+        Deck = RNG.ShuffleCollection(Deck);
     }
     
     public void ApplyDraw(Draw draw)
