@@ -10,6 +10,9 @@ namespace Ngin.Characters;
 
 public class Character
 {
+    public event Action<Character> DrawnCard;
+    public event Action<DamagedEventArgs> Damaged;
+    public event Action<HealedEventArgs> Healed;
     public event Action<Character> TryingToDrawFromEmptyDeck;
     public event Action<Character> Died;
 
@@ -56,6 +59,7 @@ public class Character
                 {
                     Card drawnCard = Deck.Pop();
                     Hand.Add(drawnCard);
+                    DrawnCard?.Invoke(this);
                 }
                 else
                 {
@@ -73,6 +77,8 @@ public class Character
         {
             int damagePower = new DamageCalculator(this, damage).CalculateDamagePower();
             Health.ChangeBy(-damagePower);
+            
+            Damaged?.Invoke(new DamagedEventArgs(this, damagePower));
 
             if (Health.Current <= 0 && !IsDead)
             {
@@ -88,6 +94,8 @@ public class Character
         {
             int healPower = new HealCalculator(this, heal).CalculateHealPower();
             Health.ChangeBy(healPower);
+            
+            Healed?.Invoke(new HealedEventArgs(this, healPower));
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Ngin.Gameplay.Turns;
 
 public class TurnCycle
 {
+    
     public event Action<Turn> TurnStarting;
     public event Action<Turn> TurnEnded;
     public event Action<Character> CharacterMoveStarted;
@@ -27,7 +28,7 @@ public class TurnCycle
     private void StartNewTurn()
     {
         turnNumber++;
-        currentTurn = new Turn(this, turnNumber, OnCharacterMoveStarted,  OnTurnEnded);
+        currentTurn = new Turn(this, turnNumber, OnCharacterMoveStarted, OnTurnEnded);
         
         TurnStarting?.Invoke(currentTurn);
         

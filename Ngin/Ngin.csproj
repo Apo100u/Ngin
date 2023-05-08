@@ -49,6 +49,7 @@
         <Compile Include="Cards\Targeting\TargetingType.cs" />
         <Compile Include="Cards\Targeting\TargetOption.cs" />
         <Compile Include="Characters\Character.cs" />
+        <Compile Include="Characters\CharacterEventArgs.cs" />
         <Compile Include="Characters\Statistic.cs" />
         <Compile Include="Characters\Team.cs" />
         <Compile Include="Gameplay\Game.cs" />

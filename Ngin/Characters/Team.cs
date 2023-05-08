@@ -2,10 +2,12 @@
 
 public class Team
 {
+    public readonly string Name;
     public readonly Character[] Characters;
 
-    public Team(params Character[] characters)
+    public Team(string name, params Character[] characters)
     {
+        Name = name;
         Characters = characters;
 
         for (int i = 0; i < Characters.Length; i++)

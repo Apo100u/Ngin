@@ -15,11 +15,17 @@ public abstract class Log
 
         for (int i = 0; i < game.AllCharacters.Count; i++)
         {
+            game.AllCharacters[i].DrawnCard += OnCharacterDrawnCard;
+            game.AllCharacters[i].Damaged += OnCharacterDamaged;
+            game.AllCharacters[i].Healed += OnCharacterHealed;
             game.AllCharacters[i].TryingToDrawFromEmptyDeck += OnCharacterTryingToDrawFromEmptyDeck;
             game.AllCharacters[i].Died += OnCharacterDied;
         }
     }
-
+    
+    protected abstract void OnCharacterDrawnCard(Character character);
+    protected abstract void OnCharacterDamaged(DamagedEventArgs args);
+    protected abstract void OnCharacterHealed(HealedEventArgs args);
     protected abstract void GameFinished(Game game);
     protected abstract void OnTurnStarting(Turn turn);
     protected abstract void OnTurnEnded(Turn turn);

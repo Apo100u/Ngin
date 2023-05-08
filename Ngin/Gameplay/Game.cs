@@ -19,9 +19,9 @@ public class Game
     public readonly TurnCycle TurnCycle;
     
     public bool IsFinished { get; private set; }
+    public Team[] Teams { get; private set; }
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
 
-    private Team[] teams;
     private List<Character> allCharacters = new();
 
     public Game(GameSettings settings)
@@ -33,7 +33,7 @@ public class Game
 
     public void SetTeams(params Team[] teams)
     {
-        this.teams = teams;
+        Teams = teams;
         allCharacters.Clear();
 
         for (int i = 0; i < teams.Length; i++)
