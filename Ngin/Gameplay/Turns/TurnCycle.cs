@@ -5,7 +5,6 @@ namespace Ngin.Gameplay.Turns;
 
 public class TurnCycle
 {
-    
     public event Action<Turn> TurnStarting;
     public event Action<Turn> TurnEnded;
     public event Action<Character> CharacterMoveStarted;

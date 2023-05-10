@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ngin.Characters;
 using Ngin.Gameplay;
 using Ngin.Helpers.Cards;
 using Ngin.InputSystem.Actions;
 using Ngin.LogSystem;
+using Ngin.Teams;
 
 namespace Ngin;
 
@@ -42,7 +44,8 @@ internal class Program
         
         while (!game.IsFinished)
         {
-            ShowAllowedActions(game);
+            ShowAllowedActions(game.Input.AllowedActions);
+            
             bool isInputValid = TryGetValidUserInput(game, out int chosenAction);
 
             if (isInputValid)
@@ -56,20 +59,24 @@ internal class Program
         }
     }
 
-    private static void ShowAllowedActions(Game game)
+    private static void ShowAllowedActions(IEnumerable<GameAction> allowedActions) 
     {
-        for (int i = 0; i < game.Input.AllowedActions.Count; i++)
+        int gameActionNumber = 0;
+        
+        foreach (GameAction allowedAction in allowedActions)
         {
-            string actionConsoleDescription = GetGameActionDescription(game.Input.AllowedActions[i]);
-            Console.WriteLine($"{i} - {actionConsoleDescription}");
+            string actionConsoleDescription = GetGameActionDescription(allowedAction);
+            Console.WriteLine($"{gameActionNumber} - {actionConsoleDescription}");
+            
+            gameActionNumber++;
         }
     }
 
     private static bool TryGetValidUserInput(Game game, out int chosenAction)
     {
         string userInput = Console.ReadLine();
-        bool inputIsValid = int.TryParse(userInput, out chosenAction) && chosenAction >= 0 && chosenAction < game.Input.AllowedActions.Count;
-        return inputIsValid;
+        bool isInputValid = int.TryParse(userInput, out chosenAction) && chosenAction >= 0 && chosenAction < game.Input.AllowedActions.Count;
+        return isInputValid;
     }
 
     private static string GetGameActionDescription(GameAction gameAction)
