@@ -6,7 +6,6 @@ using Ngin.Gameplay;
 using Ngin.Helpers.Cards;
 using Ngin.InputSystem.Actions;
 using Ngin.LogSystem;
-using Ngin.Teams;
 
 namespace Ngin;
 
