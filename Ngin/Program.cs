@@ -1,6 +1,7 @@
 ﻿using System;
 using Ngin.Characters;
 using Ngin.GameParticipants;
+using Ngin.GameParticipants.AI;
 using Ngin.Gameplay;
 using Ngin.Helpers.Cards;
 using Ngin.InputSystem;
@@ -27,7 +28,7 @@ internal class Program
         Character character4  = new(game, "Team2.Character4", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
 
         GameParticipant team1 = new HumanPlayer(game, "Participant 1", character1, character2);
-        GameParticipant team2 = new HumanPlayer(game, "Participant 2", character3, character4);
+        GameParticipant team2 = new RandomAi(game, "Participant 2", character3, character4);
         
         game.SetParticipants(team1, team2);
         

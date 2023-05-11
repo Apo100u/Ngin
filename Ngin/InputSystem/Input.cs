@@ -11,9 +11,9 @@ namespace Ngin.InputSystem;
 public abstract class Input
 {
     public GameParticipant ParticipantOnMove { get; private set; }
+    public List<GameAction> AllowedActions { get; } = new();
 
     protected Game Game;
-    protected List<GameAction> AllowedActions = new();
 
     protected Input(Game game)
     {

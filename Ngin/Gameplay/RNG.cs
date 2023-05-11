@@ -56,10 +56,18 @@ public static class RNG
     /// <summary>
     /// Randomly returns -1 or 1.
     /// </summary>
-    private static int NextSign()
+    public static int NextSign()
     {
         return random.NextDouble() > 0.5
             ? 1
             : -1;
+    }
+
+    /// <summary>
+    /// Returns a random integer that in within specified range (minValue inclusive, maxValue exclusive).
+    /// </summary>
+    public static int NextInt(int minValue, int maxValue)
+    {
+        return random.Next(minValue, maxValue);
     }
 }
