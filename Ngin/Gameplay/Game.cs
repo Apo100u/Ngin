@@ -74,7 +74,22 @@ public class Game
 
     private void OnCharacterDied(Character character)
     {
-        if (character.Owner.IsEveryCharacterDead())
+        CheckForGameFinish();
+    }
+
+    private void CheckForGameFinish()
+    {
+        int countOfRemainingParticipants = 0;
+
+        for (int i = 0; i < Participants.Length; i++)
+        {
+            if (!Participants[i].IsEveryCharacterDead())
+            {
+                countOfRemainingParticipants++;
+            }
+        }
+        
+        if (countOfRemainingParticipants == 1)
         {
             FinishGame();
         }
