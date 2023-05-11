@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ngin.Gameplay.Turns;
+﻿namespace Ngin.Gameplay.Turns;
 
 public interface ITurnState
 {

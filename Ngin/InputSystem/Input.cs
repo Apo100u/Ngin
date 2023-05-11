@@ -1,37 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Ngin.Cards;
 using Ngin.Cards.Targeting;
 using Ngin.GameParticipants;
+using Ngin.Gameplay;
 using Ngin.InputSystem.Actions;
 
 namespace Ngin.InputSystem;
 
-public class Input
+public abstract class Input
 {
     public GameParticipant ParticipantOnMove { get; private set; }
-    
-    public ReadOnlyCollection<GameAction> AllowedActions => allowedActions.AsReadOnly();
-    
-    private List<GameAction> allowedActions = new();
 
+    protected Game Game;
+    protected List<GameAction> AllowedActions = new();
+
+    protected Input(Game game)
+    {
+        Game = game;
+    }
+
+    public abstract GameAction ReadUserActionChoice();
+    
     public void StartNewChoice(GameParticipant participantOnMove)
     {
-        allowedActions.Clear();
+        AllowedActions.Clear();
         ParticipantOnMove = participantOnMove;
     }
 
     public void AllowPassing(Action onPassed)
     {
         PassAction passAction = new(onPassed);
-        allowedActions.Add(passAction);
+        AllowedActions.Add(passAction);
     }
 
     public void AllowCanceling(Action onCancelled)
     {
         CancelAction cancelAction = new(onCancelled);
-        allowedActions.Add(cancelAction);
+        AllowedActions.Add(cancelAction);
     }
 
     public void AllowChoosingCardFromCollection(IEnumerable<Card> cardCollection, Action<Card> onCardChosen)
@@ -39,7 +45,7 @@ public class Input
         foreach (Card card in cardCollection)
         {
             CardChoiceAction cardChoiceAction = new(card, onCardChosen);
-            allowedActions.Add(cardChoiceAction);
+            AllowedActions.Add(cardChoiceAction);
         }
     }
 
@@ -48,7 +54,7 @@ public class Input
         for (int i = 0; i < targetOptions.Count; i++)
         {
             TargetChoiceAction<T> targetChoiceAction = new(targetOptions[i], onTargetOptionChosen);
-            allowedActions.Add(targetChoiceAction);
+            AllowedActions.Add(targetChoiceAction);
         }
     }
 }

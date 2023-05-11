@@ -16,10 +16,10 @@ public class Game
     
     public static GameSettings Settings { get; private set; }
     
-    public readonly Input Input;
     public readonly TurnCycle TurnCycle;
     
     public bool IsFinished { get; private set; }
+    public Input Input { get; private set; }
     public GameParticipant[] Participants { get; private set; }
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
 
@@ -27,9 +27,13 @@ public class Game
 
     public Game(GameSettings settings)
     {
-        Input = new Input();
         TurnCycle = new TurnCycle(this);
         Settings = settings;
+    }
+
+    public void SetInput(Input input)
+    {
+        Input = input;
     }
 
     public void SetParticipants(params GameParticipant[] participants)

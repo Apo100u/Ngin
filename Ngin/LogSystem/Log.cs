@@ -22,14 +22,14 @@ public abstract class Log
             game.AllCharacters[i].Died += OnCharacterDied;
         }
     }
-    
-    protected abstract void OnCharacterDrawnCard(Character character);
-    protected abstract void OnCharacterDamaged(DamagedEventArgs args);
-    protected abstract void OnCharacterHealed(HealedEventArgs args);
+
     protected abstract void GameFinished(Game game);
     protected abstract void OnTurnStarting(Turn turn);
     protected abstract void OnTurnEnded(Turn turn);
     protected abstract void OnCharacterMoveStarted(Character character);
+    protected abstract void OnCharacterDrawnCard(Character character);
+    protected abstract void OnCharacterDamaged(DamagedEventArgs args);
+    protected abstract void OnCharacterHealed(HealedEventArgs args);
     protected abstract void OnCharacterTryingToDrawFromEmptyDeck(Character character);
     protected abstract void OnCharacterDied(Character character);
 }

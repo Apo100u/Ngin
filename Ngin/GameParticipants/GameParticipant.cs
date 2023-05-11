@@ -1,14 +1,18 @@
 ﻿using Ngin.Characters;
+using Ngin.Gameplay;
 
 namespace Ngin.GameParticipants;
 
-public class GameParticipant
+public abstract class GameParticipant
 {
     public readonly string Name;
     public readonly Character[] OwnedCharacters;
 
-    public GameParticipant(string name, params Character[] ownedCharacters)
+    protected Game Game;
+
+    protected GameParticipant(Game game, string name, params Character[] ownedCharacters)
     {
+        Game = game;
         Name = name;
         OwnedCharacters = ownedCharacters;
 
@@ -17,6 +21,8 @@ public class GameParticipant
             ownedCharacters[i].SetOwner(this);
         }
     }
+
+    public abstract void MakeMove();
 
     public bool IsEveryCharacterDead()
     {

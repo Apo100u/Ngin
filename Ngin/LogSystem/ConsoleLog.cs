@@ -18,7 +18,7 @@ public class ConsoleLog : Log
 
     protected override void OnCharacterDrawnCard(Character character)
     {
-        Console.WriteLine($"{CardEffectMarker}{character.Name} drawn a card.");
+        Console.WriteLine($"{CardEffectMarker}{character.Name} has drawn a card.");
     }
 
     protected override void OnCharacterDamaged(DamagedEventArgs args)
