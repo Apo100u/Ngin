@@ -51,7 +51,7 @@
         <Compile Include="Characters\Character.cs" />
         <Compile Include="Characters\CharacterEventArgs.cs" />
         <Compile Include="Characters\Statistic.cs" />
-        <Compile Include="Characters\Team.cs" />
+        <Compile Include="GameParticipants\GameParticipant.cs" />
         <Compile Include="Gameplay\Game.cs" />
         <Compile Include="Gameplay\GameSettings.cs" />
         <Compile Include="Gameplay\RNG.cs" />

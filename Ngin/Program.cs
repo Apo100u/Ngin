@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ngin.Characters;
+using Ngin.GameParticipants;
 using Ngin.Gameplay;
 using Ngin.Helpers.Cards;
 using Ngin.InputSystem.Actions;
@@ -29,10 +30,10 @@ internal class Program
         Character character3  = new(game, "Team2.Character3", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
         Character character4  = new(game, "Team2.Character4", 10, random.Next(-3, 3), CardsFactory.SimpleExampleDeck());
 
-        Team team1 = new("Team 1", character1, character2);
-        Team team2 = new("Team 2", character3, character4);
+        GameParticipant team1 = new("Team 1", character1, character2);
+        GameParticipant team2 = new("Team 2", character3, character4);
         
-        game.SetTeams(team1, team2);
+        game.SetParticipants(team1, team2);
         
         ConsoleLog consoleLog = new();
         consoleLog.StartLogging(game);

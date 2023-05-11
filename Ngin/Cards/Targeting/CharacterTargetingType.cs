@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ngin.Characters;
+using Ngin.GameParticipants;
 
 namespace Ngin.Cards.Targeting;
 
@@ -44,7 +45,7 @@ public class CharacterTargetingType : TargetingType<Character>
     });
     
     /// <summary>
-    /// Allows choosing the user or any alive character that has the same <see cref="Team"/> as the user.
+    /// Allows choosing the user or any alive character that is controlled by the same <see cref="GameParticipant"/> as the user.
     /// </summary>
     public static CharacterTargetingType AliveAllyOrUser = new(user =>
     {
@@ -54,7 +55,7 @@ public class CharacterTargetingType : TargetingType<Character>
         {
             Character consideredCharacter = user.Game.AllCharacters[i];
             
-            if (!consideredCharacter.IsDead && consideredCharacter.Team == user.Team)
+            if (!consideredCharacter.IsDead && consideredCharacter.Owner == user.Owner)
             {
                 TargetOption<Character> targetOption = new(consideredCharacter);
                 targetOptions.Add(targetOption);
@@ -65,7 +66,7 @@ public class CharacterTargetingType : TargetingType<Character>
     });
     
     /// <summary>
-    /// Allows choosing any alive character that has a different <see cref="Team"/> than the user.
+    /// Allows choosing any alive character that is controller by a different <see cref="GameParticipant"/> than the user.
     /// </summary>
     public static CharacterTargetingType AliveEnemy = new(user =>
     {
@@ -75,7 +76,7 @@ public class CharacterTargetingType : TargetingType<Character>
         {
             Character consideredCharacter = user.Game.AllCharacters[i];
             
-            if (!consideredCharacter.IsDead && consideredCharacter.Team != user.Team)
+            if (!consideredCharacter.IsDead && consideredCharacter.Owner != user.Owner)
             {
                 TargetOption<Character> targetOption = new(consideredCharacter);
                 targetOptions.Add(targetOption);
@@ -86,7 +87,7 @@ public class CharacterTargetingType : TargetingType<Character>
     });
     
     /// <summary>
-    /// Targets all alive characters that have a different <see cref="Team"/> than the user.
+    /// Targets all alive characters that are controlled by a different <see cref="GameParticipant"/> than the user.
     /// </summary>
     public static CharacterTargetingType AllAliveEnemies = new(user =>
     {
@@ -96,7 +97,7 @@ public class CharacterTargetingType : TargetingType<Character>
         {
             Character consideredCharacter = user.Game.AllCharacters[i];
             
-            if (!consideredCharacter.IsDead && consideredCharacter.Team != user.Team)
+            if (!consideredCharacter.IsDead && consideredCharacter.Owner != user.Owner)
             {
                 aliveEnemyCharacters.Add(consideredCharacter);
             }

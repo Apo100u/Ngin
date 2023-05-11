@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Ngin.Characters;
+using Ngin.GameParticipants;
 using Ngin.Gameplay;
 using Ngin.Gameplay.Turns;
 
@@ -34,8 +35,8 @@ public class ConsoleLog : Log
     {
         Separator();
 
-        Team winningTeam = game.AllCharacters.First(x => !x.Team.IsEveryCharacterDead()).Team;
-        Console.WriteLine($"Game ended! Winner team: {string.Join(", ", winningTeam.Characters.Select(x => x.Name))}.");
+        GameParticipant winningGameParticipant = game.Participants.First(x => !x.IsEveryCharacterDead());
+        Console.WriteLine($"Game ended! Winner: {winningGameParticipant.Name}.");
     }
 
     protected override void OnTurnStarting(Turn turn)
@@ -72,19 +73,19 @@ public class ConsoleLog : Log
 
     private void ShowGameStatus(Game game)
     {
-        for (int i = 0; i < game.Teams.Length; i++)
+        for (int i = 0; i < game.Participants.Length; i++)
         {
-            ShowTeamStatus(game.Teams[i]);
+            ShowParticipantStatus(game.Participants[i]);
         }
     }
 
-    private void ShowTeamStatus(Team team)
+    private void ShowParticipantStatus(GameParticipant gameParticipant)
     {
-        Console.WriteLine(team.Name);
+        Console.WriteLine(gameParticipant.Name);
         
-        for (int i = 0; i < team.Characters.Length; i++)
+        for (int i = 0; i < gameParticipant.OwnedCharacters.Length; i++)
         {
-            Character character = team.Characters[i];
+            Character character = gameParticipant.OwnedCharacters[i];
             
             Console.WriteLine($"   -{character.Name}   | Health: {character.Health.Current} | Initiative: {character.Initiative.Current} " +
                               $"| Cards in hand: {character.Hand.Count} | Cards in deck: {character.Deck.Count} |");

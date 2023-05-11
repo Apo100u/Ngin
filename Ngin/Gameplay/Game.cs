@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Ngin.Cards.Effects;
 using Ngin.Cards.Targeting;
 using Ngin.Characters;
+using Ngin.GameParticipants;
 using Ngin.Gameplay.Turns;
 using Ngin.InputSystem;
 
@@ -19,7 +20,7 @@ public class Game
     public readonly TurnCycle TurnCycle;
     
     public bool IsFinished { get; private set; }
-    public Team[] Teams { get; private set; }
+    public GameParticipant[] Participants { get; private set; }
     public ReadOnlyCollection<Character> AllCharacters => allCharacters.AsReadOnly();
 
     private List<Character> allCharacters = new();
@@ -31,14 +32,14 @@ public class Game
         Settings = settings;
     }
 
-    public void SetTeams(params Team[] teams)
+    public void SetParticipants(params GameParticipant[] participants)
     {
-        Teams = teams;
+        Participants = participants;
         allCharacters.Clear();
 
-        for (int i = 0; i < teams.Length; i++)
+        for (int i = 0; i < participants.Length; i++)
         {
-            allCharacters.AddRange(teams[i].Characters);
+            allCharacters.AddRange(participants[i].OwnedCharacters);
         }
     }
 
@@ -69,7 +70,7 @@ public class Game
 
     private void OnCharacterDied(Character character)
     {
-        if (character.Team.IsEveryCharacterDead())
+        if (character.Owner.IsEveryCharacterDead())
         {
             FinishGame();
         }

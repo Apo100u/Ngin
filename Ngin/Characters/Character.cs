@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ngin.Cards;
 using Ngin.Cards.Effects;
 using Ngin.Cards.Targeting;
+using Ngin.GameParticipants;
 using Ngin.Gameplay;
 using Ngin.Helpers.Calculators;
 
@@ -22,7 +23,7 @@ public class Character
     public readonly Statistic Initiative;
 
     public bool IsDead { get; private set; }
-    public Team Team { get; private set; }
+    public GameParticipant Owner { get; private set; }
     public List<Card> Hand { get; private set; }
     public Stack<Card> Deck { get; private set; }
     public Stack<Card> UsedCards { get; private set; }
@@ -39,9 +40,9 @@ public class Character
         IsDead = false;
     }
 
-    public void SetTeam(Team team)
+    public void SetOwner(GameParticipant owner)
     {
-        Team = team;
+        Owner = owner;
     }
 
     public void ShuffleDeck()
