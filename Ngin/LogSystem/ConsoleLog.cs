@@ -34,7 +34,7 @@ public class ConsoleLog : Log
     {
         Separator();
 
-        Team winningTeam = game.AllCharacters.First(x => !x.Team.AllCharactersDead()).Team;
+        Team winningTeam = game.AllCharacters.First(x => !x.Team.IsEveryCharacterDead()).Team;
         Console.WriteLine($"Game ended! Winner team: {string.Join(", ", winningTeam.Characters.Select(x => x.Name))}.");
     }
 

@@ -16,7 +16,7 @@ public class Team
         }
     }
 
-    public bool AllCharactersDead()
+    public bool IsEveryCharacterDead()
     {
         bool allCharactersDead = true;
 

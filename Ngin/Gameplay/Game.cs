@@ -69,7 +69,7 @@ public class Game
 
     private void OnCharacterDied(Character character)
     {
-        if (character.Team.AllCharactersDead())
+        if (character.Team.IsEveryCharacterDead())
         {
             FinishGame();
         }
