@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Ngin.Cards;
 using Ngin.Cards.Targeting;
+using Ngin.GameParticipants;
 using Ngin.InputSystem.Actions;
 
 namespace Ngin.InputSystem;
 
 public class Input
 {
+    public GameParticipant ParticipantOnMove { get; private set; }
+    
     public ReadOnlyCollection<GameAction> AllowedActions => allowedActions.AsReadOnly();
     
     private List<GameAction> allowedActions = new();
 
-    public void ClearAllowedActions()
+    public void StartNewChoice(GameParticipant participantOnMove)
     {
         allowedActions.Clear();
+        ParticipantOnMove = participantOnMove;
     }
 
     public void AllowPassing(Action onPassed)

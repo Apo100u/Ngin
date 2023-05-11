@@ -24,7 +24,7 @@ public class CharacterMoveState : ITurnState
 
     private void SetupInput()
     {
-        character.Game.Input.ClearAllowedActions();
+        character.Game.Input.StartNewChoice(character.Owner);
         character.Game.Input.AllowPassing(OnPass);
         character.Game.Input.AllowChoosingCardFromCollection(character.Hand, OnCardToPlayChosen);
     }

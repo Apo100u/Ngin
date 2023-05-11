@@ -29,7 +29,7 @@ public class Heal : CardEffect
         
         List<TargetOption<Character>> targetOptions = targetingType.GetAvailableTargetOptions(user);
         
-        user.Game.Input.ClearAllowedActions();
+        user.Game.Input.StartNewChoice(user.Owner);
         user.Game.Input.AllowChoosingTargetsFromOptions(targetOptions, OnTargetOptionChosen);
         user.Game.Input.AllowCanceling(onCancelled);
     }
