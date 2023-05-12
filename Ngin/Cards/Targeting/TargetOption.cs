@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
-
-namespace Ngin.Cards.Targeting;
+﻿namespace Ngin.Cards.Targeting;
 
 public class TargetOption<T>
 {
-    public ReadOnlyCollection<T> Targets => Array.AsReadOnly(targets);
-
-    private T[] targets;
+    public T[] Targets;
 
     public TargetOption(params T[] targets)
     {
-        this.targets = targets;
+        Targets = targets;
     }
 }

@@ -36,7 +36,7 @@ public class Damage : CardEffect
 
     private void OnTargetOptionChosen(TargetOption<Character> targetOption)
     {
-        for (int i = 0; i < targetOption.Targets.Count; i++)
+        for (int i = 0; i < targetOption.Targets.Length; i++)
         {
             targetOption.Targets[i].ApplyDamage(this);
         }
