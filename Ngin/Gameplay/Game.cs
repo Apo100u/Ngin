@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Ngin.Cards.Effects;
 using Ngin.Cards.Targeting;
 using Ngin.Characters;
