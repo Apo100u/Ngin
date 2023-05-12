@@ -24,10 +24,20 @@ public class Turn
 
     public void Start()
     {
-        charactersInMoveOrder = GetCharactersInMoveOrder();
+        charactersInMoveOrder = GetAliveCharactersInMoveOrder(TurnCycle.Game.AllCharacters);
+
+        for (int i = 0; i < TurnCycle.Game.AllCharacters.Count; i++)
+        {
+            TurnCycle.Game.AllCharacters[i].Died += OnCharacterDied;
+        }
         
         currentState = new TurnStartState(this, OnTurnStartStateEnded);
         currentState.Start();
+    }
+
+    private void OnCharacterDied(Character obj)
+    {
+        UpdateMoveOrderOfCharactersLeft();
     }
 
     private void OnTurnStartStateEnded()
@@ -57,22 +67,35 @@ public class Turn
         }
     }
 
-    private Queue<Character> GetCharactersInMoveOrder()
+    private void UpdateMoveOrderOfCharactersLeft()
     {
-        Queue<Character> charactersInOrder = new();
-        List<Character> allCharacters = new(TurnCycle.Game.AllCharacters);
+        charactersInMoveOrder = GetAliveCharactersInMoveOrder(charactersInMoveOrder);
+    }
+
+    private Queue<Character> GetAliveCharactersInMoveOrder(IEnumerable<Character> source)
+    {
+        Queue<Character> aliveCharactersInMoveOrder = new();
+        List<Character> allCharacters = new(source);
         allCharacters.Sort(RNG.InitiativeComparisonWithRandomOnEqual());
 
         for (int i = allCharacters.Count - 1; i >= 0; i--)
         {
-            charactersInOrder.Enqueue(allCharacters[i]);
+            if (!allCharacters[i].IsDead)
+            {
+                aliveCharactersInMoveOrder.Enqueue(allCharacters[i]);
+            }
         }
 
-        return charactersInOrder;
+        return aliveCharactersInMoveOrder;
     }
 
     private void End()
     {
+        for (int i = 0; i < TurnCycle.Game.AllCharacters.Count; i++)
+        {
+            TurnCycle.Game.AllCharacters[i].Died -= OnCharacterDied;
+        }
+        
         onEnd?.Invoke();
     }
 }
