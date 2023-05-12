@@ -55,19 +55,19 @@ public class Game
             allCharacters[i].ShuffleDeck();
         }
         
-        DrawCardsForAllAliveCharacters(Settings.CardsToDrawOnGameStart);
+        DrawCardsForCharacters(allCharacters, Settings.CardsToDrawOnGameStart);
         TurnCycle.Start();
     }
 
-    public void DrawCardsForAllAliveCharacters(int cardsCount)
+    public void DrawCardsForCharacters(List<Character> characters, int cardsCount)
     {
         Draw draw = new(cardsCount, CharacterTargetingType.User);
         
-        for (int i = 0; i < allCharacters.Count; i++)
+        for (int i = 0; i < characters.Count; i++)
         {
-            if (!allCharacters[i].IsDead)
+            if (!characters[i].IsDead)
             {
-                allCharacters[i].ApplyDraw(draw);
+                characters[i].ApplyDraw(draw);
             }
         }
     }
@@ -99,7 +99,5 @@ public class Game
     {
         IsFinished = true;
         Finished?.Invoke(this);
-
-        // TODO (BUG): Game is not finished properly. After finishing once, the remaining actions are still executed and the game can "finish" again.
     }
 }

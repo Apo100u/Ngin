@@ -9,8 +9,9 @@ public class Turn
     public readonly TurnCycle TurnCycle;
     public readonly int Number;
     
+    public Queue<Character> CharactersInMoveOrder { get; private set; }
+    
     private ITurnState currentState;
-    private Queue<Character> charactersInMoveOrder;
     private Action<Character> onCharacterMoveStarted;
     private Action onEnd;
 
@@ -24,7 +25,7 @@ public class Turn
 
     public void Start()
     {
-        charactersInMoveOrder = GetAliveCharactersInMoveOrder(TurnCycle.Game.AllCharacters);
+        CharactersInMoveOrder = GetAliveCharactersInMoveOrder(TurnCycle.Game.AllCharacters);
 
         for (int i = 0; i < TurnCycle.Game.AllCharacters.Count; i++)
         {
@@ -35,7 +36,7 @@ public class Turn
         currentState.Start();
     }
 
-    private void OnCharacterDied(Character obj)
+    private void OnCharacterDied(Character character)
     {
         UpdateMoveOrderOfCharactersLeft();
     }
@@ -47,7 +48,7 @@ public class Turn
 
     private void DoNextCharactersMove()
     {
-        Character characterOnMove = charactersInMoveOrder.Dequeue();
+        Character characterOnMove = CharactersInMoveOrder.Dequeue();
         
         onCharacterMoveStarted?.Invoke(characterOnMove);
         
@@ -57,7 +58,7 @@ public class Turn
 
     private void OnCharactersMoveEnded()
     {
-        if (charactersInMoveOrder.Count > 0)
+        if (CharactersInMoveOrder.Count > 0)
         {
             DoNextCharactersMove();
         }
@@ -69,7 +70,7 @@ public class Turn
 
     private void UpdateMoveOrderOfCharactersLeft()
     {
-        charactersInMoveOrder = GetAliveCharactersInMoveOrder(charactersInMoveOrder);
+        CharactersInMoveOrder = GetAliveCharactersInMoveOrder(CharactersInMoveOrder);
     }
 
     private Queue<Character> GetAliveCharactersInMoveOrder(IEnumerable<Character> source)

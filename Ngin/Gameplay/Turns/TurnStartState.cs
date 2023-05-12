@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Ngin.Characters;
 
 namespace Ngin.Gameplay.Turns;
 
@@ -15,8 +17,10 @@ public class TurnStartState : ITurnState
 
     public void Start()
     {
+        List<Character> charactersInMoveOrder = new(turn.CharactersInMoveOrder);
         int amountOfCardsToDraw = Game.Settings.CardsToDrawOnTurnStart;
-        turn.TurnCycle.Game.DrawCardsForAllAliveCharacters(amountOfCardsToDraw);
+        
+        turn.TurnCycle.Game.DrawCardsForCharacters(charactersInMoveOrder, amountOfCardsToDraw);
         onEnd?.Invoke();
     }
 }
