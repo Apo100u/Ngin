@@ -67,7 +67,6 @@
         <Compile Include="Helpers\Calculators\DrawCalculator.cs" />
         <Compile Include="Helpers\Calculators\HealCalculator.cs" />
         <Compile Include="Helpers\Cards\CardsFactory.cs" />
-        <Compile Include="Helpers\DeepCopyExtensionMethods.cs" />
         <Compile Include="InputSystem\Actions\CancelAction.cs" />
         <Compile Include="InputSystem\Actions\CardChoiceAction.cs" />
         <Compile Include="InputSystem\Actions\GameAction.cs" />
@@ -79,6 +78,7 @@
         <Compile Include="LogSystem\Log.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="ThirdParty\DeepCopyExtensionMethods.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

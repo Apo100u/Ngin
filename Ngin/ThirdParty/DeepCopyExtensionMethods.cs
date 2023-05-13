@@ -18,11 +18,12 @@
 // https://stackoverflow.com/questions/129389/how-do-you-do-a-deep-copy-of-an-object-in-net
 // https://github.com/Burtsev-Alexey/net-object-deep-copy
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.ArrayExtensions;
+using Ngin.ThirdParty.ArrayExtensions;
 
-namespace System
+namespace Ngin.ThirdParty
 {
     public static class ObjectExtensions
     {
