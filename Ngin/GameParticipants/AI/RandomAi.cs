@@ -11,7 +11,7 @@ public class RandomAi : GameParticipant
     {
     }
 
-    public override void MakeMove()
+    public override void ChooseAction()
     {
         List<GameAction> consideredActions = new();
 

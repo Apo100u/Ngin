@@ -41,7 +41,7 @@ internal class Program
         
         while (!game.IsFinished)
         {
-            game.Input.ParticipantOnMove.MakeMove();
+            game.Input.ParticipantChoosingAction.ChooseAction();
         }
 
         Console.ReadKey();

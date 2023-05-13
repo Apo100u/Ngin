@@ -22,7 +22,7 @@ public abstract class GameParticipant
         }
     }
 
-    public abstract void MakeMove();
+    public abstract void ChooseAction();
 
     public bool IsEveryCharacterDead()
     {

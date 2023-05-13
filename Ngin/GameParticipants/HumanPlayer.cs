@@ -10,7 +10,7 @@ public class HumanPlayer : GameParticipant
     {
     }
 
-    public override void MakeMove()
+    public override void ChooseAction()
     {
         GameAction chosenAction = Game.Input.ReadUserActionChoice();
         chosenAction.Execute();

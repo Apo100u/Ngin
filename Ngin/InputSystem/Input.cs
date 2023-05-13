@@ -9,15 +9,15 @@ namespace Ngin.InputSystem;
 
 public abstract class Input
 {
-    public GameParticipant ParticipantOnMove { get; private set; }
+    public GameParticipant ParticipantChoosingAction { get; private set; }
     public List<GameAction> AllowedActions { get; } = new();
 
     public abstract GameAction ReadUserActionChoice();
     
-    public void StartNewChoice(GameParticipant participantOnMove)
+    public void StartNewChoice(GameParticipant participantChoosingAction)
     {
         AllowedActions.Clear();
-        ParticipantOnMove = participantOnMove;
+        ParticipantChoosingAction = participantChoosingAction;
     }
 
     public void AllowPassing(Action onPassed)
