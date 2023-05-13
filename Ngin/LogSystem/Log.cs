@@ -1,5 +1,4 @@
-﻿using Ngin.Cards;
-using Ngin.Characters;
+﻿using Ngin.Characters;
 using Ngin.Gameplay;
 using Ngin.Gameplay.Turns;
 
@@ -25,7 +24,6 @@ public abstract class Log
             game.AllCharacters[i].Died += OnCharacterDied;
         }
     }
-
 
     protected abstract void GameFinished(Game game);
     protected abstract void OnTurnStarting(Turn turn);
