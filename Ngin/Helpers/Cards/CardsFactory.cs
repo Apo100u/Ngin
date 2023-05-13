@@ -13,34 +13,34 @@ public static class CardsFactory
 
         for (int i = 0; i < 20; i++)
         {
-            simpleExampleDeck[i] = DamageEnemyForThreeCard();
+            simpleExampleDeck[i] = DamageEnemyCard(3);
         }
         
         for (int i = 20; i < 27; i++)
         {
-            simpleExampleDeck[i] = HealAllyOrUserForOneCard();
+            simpleExampleDeck[i] = HealAllyOrUserCard(5);
         }
         
         for (int i = 27; i < 30; i++)
         {
-            simpleExampleDeck[i] = DrawOneForUserCard();
+            simpleExampleDeck[i] = DrawForUserCard(1);
         }
 
         return simpleExampleDeck;
     }
 
-    public static Card DamageEnemyForThreeCard()
+    public static Card DamageEnemyCard(int damagePower)
     {
-        return new Card("Example Damage Card", new Damage(3, CharacterTargetingType.AliveEnemy));
+        return new Card("Example Damage Card", new Damage(damagePower, CharacterTargetingType.AliveEnemy));
     }
 
-    public static Card HealAllyOrUserForOneCard()
+    public static Card HealAllyOrUserCard(int healPower)
     {
-        return new Card("Example Heal Card", new Heal(1, CharacterTargetingType.AliveAllyOrUser));
+        return new Card("Example Heal Card", new Heal(healPower, CharacterTargetingType.AliveAllyOrUser));
     }
 
-    public static Card DrawOneForUserCard()
+    public static Card DrawForUserCard(int drawAmount)
     {
-        return new Card("Example Draw Card", new Draw(1, CharacterTargetingType.User));
+        return new Card("Example Draw Card", new Draw(drawAmount, CharacterTargetingType.User));
     }
 }
