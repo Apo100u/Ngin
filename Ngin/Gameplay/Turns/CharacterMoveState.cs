@@ -31,6 +31,7 @@ public class CharacterMoveState : ITurnState
 
     private void OnPass()
     {
+        character.PassTurn();
         End();
     }
 

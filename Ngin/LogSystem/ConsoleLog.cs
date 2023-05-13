@@ -9,32 +9,41 @@ namespace Ngin.LogSystem;
 
 public class ConsoleLog : Log
 {
-    private const string CardEffectMarker = " => ";
+    private const string CharacterActionMarker = " => ";
     
     private void Separator()
     {
         Console.WriteLine("──────────────────────────────────────────────────────────────");
     }
+    
+    protected override void OnCharacterPassedTurn(Character character)
+    {
+        Console.WriteLine($"{CharacterActionMarker}{character.Name} passes.");
+    }
+
+    protected override void OnCharacterPlayedCardFromHand(PlayedCardFromHandEventArgs args)
+    {
+        Console.WriteLine($"{CharacterActionMarker}{args.Character.Name} plays card: {args.PlayedCard.Name}.");
+    }
 
     protected override void OnCharacterDrawnCard(Character character)
     {
-        Console.WriteLine($"{CardEffectMarker}{character.Name} has drawn a card.");
+        Console.WriteLine($"{CharacterActionMarker}{character.Name} draws a card.");
     }
 
     protected override void OnCharacterDamaged(DamagedEventArgs args)
     {
-        Console.WriteLine($"{CardEffectMarker}{args.Character.Name} was damaged for {args.ActualDamageTaken}.");
+        Console.WriteLine($"{CharacterActionMarker}{args.Character.Name} is damaged for {args.ActualDamageTaken}.");
     }
 
     protected override void OnCharacterHealed(HealedEventArgs args)
     {
-        Console.WriteLine($"{CardEffectMarker}{args.Character.Name} was healed for {args.ActualHealTaken}.");
+        Console.WriteLine($"{CharacterActionMarker}{args.Character.Name} is healed for {args.ActualHealTaken}.");
     }
 
     protected override void GameFinished(Game game)
     {
         Separator();
-
         GameParticipant winningGameParticipant = game.Participants.First(x => !x.IsEveryCharacterDead());
         Console.WriteLine($"Game ended! Winner: {winningGameParticipant.Name}.");
     }
@@ -53,8 +62,12 @@ public class ConsoleLog : Log
 
     protected override void OnCharacterMoveStarted(Character character)
     {
-        Separator();
-        ShowGameStatus(character.Game);
+        if (character.Owner is HumanPlayer)
+        {
+            Separator();
+            ShowGameStatus(character.Game);
+        }
+
         Separator();
         Console.WriteLine($"{character.Name}'s move.");
     }
@@ -62,13 +75,13 @@ public class ConsoleLog : Log
     protected override void OnCharacterTryingToDrawFromEmptyDeck(Character character)
     {
         Separator();
-        Console.WriteLine($"Character {character.Name} is trying to draw a card from empty deck. This will apply damage equal to their current health.");
+        Console.WriteLine($"Character {character.Name} is trying to draw a card from an empty deck. This will apply damage equal to their current health.");
     }
 
     protected override void OnCharacterDied(Character character)
     {
         Separator();
-        Console.WriteLine($"Character {character.Name} has died.");
+        Console.WriteLine($"Character {character.Name} dies.");
     }
 
     private void ShowGameStatus(Game game)

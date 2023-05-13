@@ -11,6 +11,8 @@ namespace Ngin.Characters;
 
 public class Character
 {
+    public event Action<Character> PassedTurn;
+    public event Action<PlayedCardFromHandEventArgs> PlayedCardFromHand;
     public event Action<Character> DrawnCard;
     public event Action<DamagedEventArgs> Damaged;
     public event Action<HealedEventArgs> Healed;
@@ -49,10 +51,16 @@ public class Character
     {
         Deck = RNG.ShuffleCollection(Deck);
     }
+
+    public void PassTurn()
+    {
+        PassedTurn?.Invoke(this);
+    }
     
     public void PlayCardFromHand(Card card, Action onChosenCardPlayed, Action onChosenCardCancelled)
     {
         card.Play(this, onChosenCardPlayed, onChosenCardCancelled);
+        PlayedCardFromHand?.Invoke(new PlayedCardFromHandEventArgs(this, card));
     }
     
     public void MoveCardFromHandToUsedCards(Card cardFromHand)

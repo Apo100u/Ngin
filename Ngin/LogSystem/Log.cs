@@ -1,4 +1,5 @@
-﻿using Ngin.Characters;
+﻿using Ngin.Cards;
+using Ngin.Characters;
 using Ngin.Gameplay;
 using Ngin.Gameplay.Turns;
 
@@ -15,6 +16,8 @@ public abstract class Log
 
         for (int i = 0; i < game.AllCharacters.Count; i++)
         {
+            game.AllCharacters[i].PassedTurn += OnCharacterPassedTurn;
+            game.AllCharacters[i].PlayedCardFromHand += OnCharacterPlayedCardFromHand;
             game.AllCharacters[i].DrawnCard += OnCharacterDrawnCard;
             game.AllCharacters[i].Damaged += OnCharacterDamaged;
             game.AllCharacters[i].Healed += OnCharacterHealed;
@@ -23,10 +26,13 @@ public abstract class Log
         }
     }
 
+
     protected abstract void GameFinished(Game game);
     protected abstract void OnTurnStarting(Turn turn);
     protected abstract void OnTurnEnded(Turn turn);
     protected abstract void OnCharacterMoveStarted(Character character);
+    protected abstract void OnCharacterPassedTurn(Character character);
+    protected abstract void OnCharacterPlayedCardFromHand(PlayedCardFromHandEventArgs args);
     protected abstract void OnCharacterDrawnCard(Character character);
     protected abstract void OnCharacterDamaged(DamagedEventArgs args);
     protected abstract void OnCharacterHealed(HealedEventArgs args);

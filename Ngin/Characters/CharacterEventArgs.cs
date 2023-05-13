@@ -1,4 +1,6 @@
-﻿namespace Ngin.Characters;
+﻿using Ngin.Cards;
+
+namespace Ngin.Characters;
 
 public class DamagedEventArgs
 {
@@ -21,5 +23,17 @@ public class HealedEventArgs
     {
         Character = character;
         ActualHealTaken = actualHealTaken;
+    }
+}
+
+public class PlayedCardFromHandEventArgs
+{
+    public readonly Character Character;
+    public readonly Card PlayedCard;
+
+    public PlayedCardFromHandEventArgs(Character character, Card playedCard)
+    {
+        Character = character;
+        PlayedCard = playedCard;
     }
 }

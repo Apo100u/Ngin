@@ -43,5 +43,7 @@ internal class Program
         {
             game.Input.ParticipantOnMove.MakeMove();
         }
+
+        Console.ReadKey();
     }
 }
