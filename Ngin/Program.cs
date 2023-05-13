@@ -35,7 +35,7 @@ internal class Program
         ConsoleLog consoleLog = new();
         consoleLog.StartLogging(game);
 
-        game.SetInput(new ConsoleInput(game));
+        game.SetInput(new ConsoleInput());
         
         game.Start();
         

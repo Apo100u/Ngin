@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Ngin.Cards;
 using Ngin.Cards.Targeting;
 using Ngin.GameParticipants;
-using Ngin.Gameplay;
 using Ngin.InputSystem.Actions;
 
 namespace Ngin.InputSystem;
@@ -12,13 +11,6 @@ public abstract class Input
 {
     public GameParticipant ParticipantOnMove { get; private set; }
     public List<GameAction> AllowedActions { get; } = new();
-
-    protected Game Game;
-
-    protected Input(Game game)
-    {
-        Game = game;
-    }
 
     public abstract GameAction ReadUserActionChoice();
     

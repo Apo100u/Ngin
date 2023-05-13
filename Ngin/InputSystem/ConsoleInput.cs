@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Ngin.Characters;
-using Ngin.Gameplay;
 using Ngin.InputSystem.Actions;
 
 namespace Ngin.InputSystem;
 
 public class ConsoleInput : Input
 {
-    public ConsoleInput(Game game) : base(game)
-    {
-    }
-    
     public override GameAction ReadUserActionChoice()
     {
         LogAllowedActions();
