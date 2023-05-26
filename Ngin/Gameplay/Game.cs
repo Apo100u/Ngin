@@ -6,6 +6,7 @@ using Ngin.Characters;
 using Ngin.GameParticipants;
 using Ngin.Gameplay.Turns;
 using Ngin.InputSystem;
+using Ngin.LogSystem;
 
 namespace Ngin.Gameplay;
 
@@ -19,6 +20,7 @@ public class Game
     
     public bool IsFinished { get; private set; }
     public Input Input { get; private set; }
+    public Log Log { get; private set; }
     public GameParticipant[] Participants { get; private set; }
     public List<Character> AllCharacters { get; private set; }
 
@@ -31,6 +33,11 @@ public class Game
     public void SetInput(Input input)
     {
         Input = input;
+    }
+
+    public void SetLog(Log log)
+    {
+        Log = log;
     }
 
     public void SetParticipants(params GameParticipant[] participants)
