@@ -73,7 +73,7 @@ public class TestAi : GameParticipant
                 GameTreeNode nodeWithActionOutcome = expandedNode.AddChild(expandedCopy);
                 nodeWithActionOutcome.ActionLeadingToThisNode = i;
                 
-                if (expandedCopy.Input.ParticipantChoosingAction == thisParticipantInCopiedGame)
+                if (expandedCopy.Input.ParticipantChoosingAction == thisParticipantInCopiedGame && !expandedCopy.IsFinished)
                 {
                     nodesToExpand.Enqueue(nodeWithActionOutcome);
                 }
