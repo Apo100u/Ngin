@@ -8,40 +8,19 @@ namespace Ngin.GameParticipants.AI;
 
 public class TestAi : GameParticipant
 {
-    private Stack<int> actionsToExecute = new();
+    private Stack<int> indexesOfActionsToExecute = new(); // REFACTOR: This should be a queue. It's now a stack because of how the actions are calculated, but it should be remade into queue to be more intuitive.
 
     public TestAi(Game game, string name, params Character[] ownedCharacters) : base(game, name, ownedCharacters)
     {
-    }
-    
-    private class GameTreeNode // In the future maybe move it to proper place, with proper naming, formatting etc? For now only for testing.
-    {
-        public readonly Game Game;
-        public int? ActionLeadingToThisNode;
-        public GameTreeNode Parent;
-        public List<GameTreeNode> Children = new();
-
-        public GameTreeNode(Game value, GameTreeNode parent)
-        {
-            Game = value;
-            Parent = parent;
-        }
-
-        public GameTreeNode AddChild(Game value)
-        {
-            GameTreeNode node = new(value, this);
-            Children.Add(node);
-            return node;
-        }
     }
 
     public override void ChooseAction()
     {
         // TODO: This whole method needs hardcore refactor...
 
-        if (actionsToExecute.Count > 0)
+        if (indexesOfActionsToExecute.Count > 0)
         {
-            int chosenActionIndex = actionsToExecute.Pop();
+            int chosenActionIndex = indexesOfActionsToExecute.Pop();
             Game.Input.AllowedActions[chosenActionIndex].Execute();
             return; // REFACTOR: NO RETURN IN THE MIDDLE OF THE CODE!!!
         }
@@ -79,7 +58,7 @@ public class TestAi : GameParticipant
                 }
                 else
                 {
-                    int score = TEST_GetTestHeuristicScoreForParticipant(expandedCopy, thisParticipantInCopiedGame);
+                    int score = Heuristics.GetParticipantsScoreBasedOnHealth(expandedCopy, thisParticipantInCopiedGame);
 
                     if (score > currentBestScore)
                     {
@@ -90,44 +69,13 @@ public class TestAi : GameParticipant
             }
         }
 
-        actionsToExecute = new Stack<int>();
+        indexesOfActionsToExecute = new Stack<int>();
         GameTreeNode nextNodeInChosenTreePath = nodeWithBestScore;
 
         while (nextNodeInChosenTreePath?.ActionLeadingToThisNode != null)
         {
-            actionsToExecute.Push((int)nextNodeInChosenTreePath.ActionLeadingToThisNode);
+            indexesOfActionsToExecute.Push((int)nextNodeInChosenTreePath.ActionLeadingToThisNode);
             nextNodeInChosenTreePath = nextNodeInChosenTreePath.Parent;
         }
-    }
-
-    private int TEST_GetTestHeuristicScoreForParticipant(Game game, GameParticipant gameParticipant)
-    {
-        int participantScore = 0;
-        int enemiesScore = 0;
-
-        for (int i = 0; i < game.AllCharacters.Count; i++)
-        {
-            if (game.AllCharacters[i].Owner == gameParticipant)
-            {
-                participantScore += game.AllCharacters[i].Health.Current;
-
-                if (game.AllCharacters[i].IsDead)
-                {
-                    participantScore -= 10;
-                }
-            }
-            else
-            {
-                enemiesScore += game.AllCharacters[i].Health.Current;
-                
-                if (game.AllCharacters[i].IsDead)
-                {
-                    enemiesScore -= 10;
-                }
-            }
-        }
-
-        int test_veryNaiveHeuristicScore = participantScore - enemiesScore;
-        return test_veryNaiveHeuristicScore;
     }
 }

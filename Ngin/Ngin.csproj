@@ -51,6 +51,8 @@
         <Compile Include="Characters\Character.cs" />
         <Compile Include="Characters\CharacterEventArgs.cs" />
         <Compile Include="Characters\Statistic.cs" />
+        <Compile Include="GameParticipants\AI\GameTreeNode.cs" />
+        <Compile Include="GameParticipants\AI\Heuristics.cs" />
         <Compile Include="GameParticipants\AI\RandomAi.cs" />
         <Compile Include="GameParticipants\AI\TestAi.cs" />
         <Compile Include="GameParticipants\GameParticipant.cs" />
