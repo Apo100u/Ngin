@@ -8,7 +8,7 @@ namespace Ngin.GameParticipants.AI;
 
 public class TestAi : GameParticipant
 {
-    private Stack<int> indexesOfActionsToExecute = new(); // REFACTOR: This should be a queue. It's now a stack because of how the actions are calculated, but it should be remade into queue to be more intuitive.
+    private Queue<int> indexesOfActionsToExecute = new();
 
     public TestAi(Game game, string name, params Character[] ownedCharacters) : base(game, name, ownedCharacters)
     {
@@ -22,17 +22,17 @@ public class TestAi : GameParticipant
         }
         else
         {
-            indexesOfActionsToExecute = CalculateNextActions();
+            CalculateNextActions();
         }
     }
 
     private void ExecuteNextAction()
     {
-        int chosenActionIndex = indexesOfActionsToExecute.Pop();
+        int chosenActionIndex = indexesOfActionsToExecute.Dequeue();
         Game.Input.AllowedActions[chosenActionIndex].Execute();
     }
 
-    private Stack<int> CalculateNextActions()
+    private void CalculateNextActions()
     {
         Game copiedGame = Game.DeepCopy();
         GameTreeNode searchTree = new(copiedGame, null);
@@ -40,16 +40,7 @@ public class TestAi : GameParticipant
 
         GameTreeNode nodeWithBestScore = FindNodeWithBestScore(searchTree);
 
-        Stack<int> indexesOfCalculatedActions = new();
-        GameTreeNode nextNodeInChosenTreePath = nodeWithBestScore;
-
-        while (nextNodeInChosenTreePath?.ActionLeadingToThisNode != null)
-        {
-            indexesOfCalculatedActions.Push((int)nextNodeInChosenTreePath.ActionLeadingToThisNode);
-            nextNodeInChosenTreePath = nextNodeInChosenTreePath.Parent;
-        }
-
-        return indexesOfCalculatedActions;
+        indexesOfActionsToExecute = GetIndexesOfActionsToExecuteFromNode(nodeWithBestScore);
     }
 
     private GameTreeNode FindNodeWithBestScore(GameTreeNode searchTree)
@@ -62,8 +53,8 @@ public class TestAi : GameParticipant
         
         while (nodesToExpand.Count > 0)
         {
-            GameTreeNode nodeToExpand = nodesToExpand.Dequeue();
-            ExpandNode(nodeToExpand, nodesToExpand, ref nodeWithBestScore, ref currentBestScore);
+            GameTreeNode expandedNode = nodesToExpand.Dequeue();
+            ExpandNode(expandedNode, nodesToExpand, ref nodeWithBestScore, ref currentBestScore);
         }
 
         return nodeWithBestScore;
@@ -97,5 +88,26 @@ public class TestAi : GameParticipant
                 }
             }
         }
+    }
+    
+    private Queue<int> GetIndexesOfActionsToExecuteFromNode(GameTreeNode node)
+    {
+        List<int> indexesOfActionsPlayed = new();
+        GameTreeNode nextNodeInChosenTreePath = node;
+
+        while (nextNodeInChosenTreePath?.ActionLeadingToThisNode != null)
+        {
+            indexesOfActionsPlayed.Add((int)nextNodeInChosenTreePath.ActionLeadingToThisNode);
+            nextNodeInChosenTreePath = nextNodeInChosenTreePath.Parent;
+        }
+
+        Queue<int> indexesOfActionsToExecuteInOrder = new();
+
+        for (int i = indexesOfActionsPlayed.Count - 1; i >= 0; i--)
+        {
+            indexesOfActionsToExecuteInOrder.Enqueue(indexesOfActionsPlayed[i]);
+        }
+        
+        return indexesOfActionsToExecuteInOrder;
     }
 }
