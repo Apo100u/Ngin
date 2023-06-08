@@ -16,42 +16,71 @@ public class TestAi : GameParticipant
 
     public override void ChooseAction()
     {
-        // TODO: This whole method needs hardcore refactor...
-
         if (indexesOfActionsToExecute.Count > 0)
         {
-            int chosenActionIndex = indexesOfActionsToExecute.Pop();
-            Game.Input.AllowedActions[chosenActionIndex].Execute();
-            return; // REFACTOR: NO RETURN IN THE MIDDLE OF THE CODE!!!
+            ExecuteNextAction();
         }
-        
-        Game copiedGame = Game.DeepCopy();
-        copiedGame.Log.StopLogging();
-        GameTreeNode searchTree = new(copiedGame, null);
-
-        int currentBestScore = int.MinValue;
-        GameTreeNode nodeWithBestScore = searchTree;
-        
-        Queue<GameTreeNode> nodesToExpand = new();
-        nodesToExpand.Enqueue(searchTree);
-
-        while (nodesToExpand.Count > 0) // REFACTOR: Split into methods for readability
+        else
         {
-            GameTreeNode expandedNode = nodesToExpand.Dequeue();
+            indexesOfActionsToExecute = CalculateNextActions();
+        }
+    }
 
-            for (int i = 0; i < expandedNode.Game.Input.AllowedActions.Count; i++) // OPTIMIZE: If multiple actions are the same, don't check all of them.
+    private void ExecuteNextAction()
+    {
+        int chosenActionIndex = indexesOfActionsToExecute.Pop();
+        Game.Input.AllowedActions[chosenActionIndex].Execute();
+    }
+
+    private Stack<int> CalculateNextActions()
+    {
+        Game copiedGame = Game.DeepCopy();
+        GameTreeNode searchTree = new(copiedGame, null);
+        copiedGame.Log.StopLogging();
+
+        GameTreeNode nodeWithBestScore = FindNodeWithBestScore(searchTree);
+
+        Stack<int> indexesOfCalculatedActions = new();
+        GameTreeNode nextNodeInChosenTreePath = nodeWithBestScore;
+
+        while (nextNodeInChosenTreePath?.ActionLeadingToThisNode != null)
+        {
+            indexesOfCalculatedActions.Push((int)nextNodeInChosenTreePath.ActionLeadingToThisNode);
+            nextNodeInChosenTreePath = nextNodeInChosenTreePath.Parent;
+        }
+
+        return indexesOfCalculatedActions;
+    }
+
+    private GameTreeNode FindNodeWithBestScore(GameTreeNode searchTree)
+    {
+        Queue<GameTreeNode> nodesToExpand = new();
+        GameTreeNode nodeWithBestScore = searchTree;
+        int currentBestScore = int.MinValue;
+        
+        nodesToExpand.Enqueue(searchTree);
+        
+        while (nodesToExpand.Count > 0)
+        {
+            GameTreeNode nodeToExpand = nodesToExpand.Dequeue();
+            ExpandNode(nodeToExpand, nodesToExpand, ref nodeWithBestScore, ref currentBestScore);
+        }
+
+        return nodeWithBestScore;
+    }
+
+    private void ExpandNode(GameTreeNode expandedNode, Queue<GameTreeNode> nodesToExpand, ref GameTreeNode nodeWithBestScore, ref int currentBestScore)
+    {
+        for (int i = 0; i < expandedNode.Game.Input.AllowedActions.Count; i++) // OPTIMIZE: If multiple actions are the same, don't check all of them.
+        {
+            if (expandedNode.Game.Input.AllowedActions[i] is not CancelAction)
             {
-                if (expandedNode.Game.Input.AllowedActions[i] is CancelAction)
-                {
-                    continue; // REFACTOR: NO CONTINUE IN THE MIDDLE OF THE CODE!!!
-                }
-
                 Game expandedCopy = expandedNode.Game.DeepCopy();
                 GameParticipant thisParticipantInCopiedGame = expandedCopy.Input.ParticipantChoosingAction;
                 expandedCopy.Input.AllowedActions[i].Execute();
                 GameTreeNode nodeWithActionOutcome = expandedNode.AddChild(expandedCopy);
                 nodeWithActionOutcome.ActionLeadingToThisNode = i;
-                
+
                 if (expandedCopy.Input.ParticipantChoosingAction == thisParticipantInCopiedGame && !expandedCopy.IsFinished)
                 {
                     nodesToExpand.Enqueue(nodeWithActionOutcome);
@@ -67,15 +96,6 @@ public class TestAi : GameParticipant
                     }
                 }
             }
-        }
-
-        indexesOfActionsToExecute = new Stack<int>();
-        GameTreeNode nextNodeInChosenTreePath = nodeWithBestScore;
-
-        while (nextNodeInChosenTreePath?.ActionLeadingToThisNode != null)
-        {
-            indexesOfActionsToExecute.Push((int)nextNodeInChosenTreePath.ActionLeadingToThisNode);
-            nextNodeInChosenTreePath = nextNodeInChosenTreePath.Parent;
         }
     }
 }
