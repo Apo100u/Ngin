@@ -54,7 +54,7 @@
         <Compile Include="GameParticipants\AI\GameTreeNode.cs" />
         <Compile Include="GameParticipants\AI\Heuristics.cs" />
         <Compile Include="GameParticipants\AI\RandomAi.cs" />
-        <Compile Include="GameParticipants\AI\TestAi.cs" />
+        <Compile Include="GameParticipants\AI\TreeSearchAi.cs" />
         <Compile Include="GameParticipants\GameParticipant.cs" />
         <Compile Include="GameParticipants\HumanPlayer.cs" />
         <Compile Include="Gameplay\Game.cs" />

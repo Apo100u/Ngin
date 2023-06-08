@@ -6,11 +6,11 @@ using Ngin.ThirdParty;
 
 namespace Ngin.GameParticipants.AI;
 
-public class TestAi : GameParticipant
+public class TreeSearchAi : GameParticipant
 {
     private Queue<int> indexesOfActionsToExecute = new();
 
-    public TestAi(Game game, string name, params Character[] ownedCharacters) : base(game, name, ownedCharacters)
+    public TreeSearchAi(Game game, string name, params Character[] ownedCharacters) : base(game, name, ownedCharacters)
     {
     }
 
