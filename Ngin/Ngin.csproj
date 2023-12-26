@@ -52,6 +52,11 @@
         <Compile Include="Characters\CharacterEventArgs.cs" />
         <Compile Include="Characters\Statistic.cs" />
         <Compile Include="GameParticipants\AI\GameTreeNode.cs" />
+        <Compile Include="GameParticipants\AI\GOAP\DamageGoal.cs" />
+        <Compile Include="GameParticipants\AI\GOAP\DrawGoal.cs" />
+        <Compile Include="GameParticipants\AI\GOAP\Goal.cs" />
+        <Compile Include="GameParticipants\AI\GOAP\GoapAi.cs" />
+        <Compile Include="GameParticipants\AI\GOAP\HealGoal.cs" />
         <Compile Include="GameParticipants\AI\Heuristics.cs" />
         <Compile Include="GameParticipants\AI\RandomAi.cs" />
         <Compile Include="GameParticipants\AI\TreeSearchAi.cs" />
