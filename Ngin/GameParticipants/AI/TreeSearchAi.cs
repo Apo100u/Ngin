@@ -9,6 +9,8 @@ namespace Ngin.GameParticipants.AI;
 public class TreeSearchAi : GameParticipant
 {
     private Queue<int> indexesOfActionsToExecute = new();
+    
+    protected bool AnyActionsQueued => indexesOfActionsToExecute.Count > 0;
 
     public TreeSearchAi(Game game, string name, params Character[] ownedCharacters) : base(game, name, ownedCharacters)
     {
@@ -16,7 +18,7 @@ public class TreeSearchAi : GameParticipant
 
     public override void ChooseAction()
     {
-        if (indexesOfActionsToExecute.Count > 0)
+        if (AnyActionsQueued)
         {
             ExecuteNextAction();
         }
@@ -78,7 +80,7 @@ public class TreeSearchAi : GameParticipant
                 }
                 else
                 {
-                    int score = Heuristics.GetParticipantsScoreBasedOnHealth(expandedCopy, thisParticipantInCopiedGame);
+                    int score = GetParticipantsScore(expandedCopy, thisParticipantInCopiedGame);
 
                     if (score > currentBestScore)
                     {
@@ -88,6 +90,11 @@ public class TreeSearchAi : GameParticipant
                 }
             }
         }
+    }
+
+    protected virtual int GetParticipantsScore(Game game, GameParticipant gameParticipant)
+    {
+        return Heuristics.GetScoreBasedOnHealth(game, gameParticipant);
     }
     
     private Queue<int> GetIndexesOfActionsToExecuteFromNode(GameTreeNode node)

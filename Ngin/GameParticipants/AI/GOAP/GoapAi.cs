@@ -18,6 +18,21 @@ public class GoapAi : TreeSearchAi
         };
     }
 
+    public override void ChooseAction()
+    {
+        if (!AnyActionsQueued)
+        {
+            currentGoal = GetHighestPriorityGoal();
+        }
+        
+        base.ChooseAction();
+    }
+
+    protected override int GetParticipantsScore(Game game, GameParticipant gameParticipant)
+    {
+        return currentGoal.GetScore(game, gameParticipant);
+    }
+
     private Goal GetHighestPriorityGoal()
     {
         Goal highestPriorityGoal = null;
@@ -25,7 +40,7 @@ public class GoapAi : TreeSearchAi
 
         for (int i = 0; i < possibleGoals.Length; i++)
         {
-            float priority = possibleGoals[i].GetPriority();
+            float priority = possibleGoals[i].GetPriority(Game, this);
 
             if (priority > highestFoundPriority)
             {
