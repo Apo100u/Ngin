@@ -1,7 +1,9 @@
-﻿namespace Ngin.GameParticipants.AI.GOAP;
+﻿using Ngin.Gameplay;
+
+namespace Ngin.GameParticipants.AI.GOAP;
 
 public abstract class Goal
 {
-    public abstract float GetPriority();
-    public abstract float GetScore();
+    public abstract int GetPriority(Game game, GameParticipant gameParticipant);
+    public abstract int GetScore(Game game, GameParticipant gameParticipant);
 }

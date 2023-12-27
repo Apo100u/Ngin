@@ -5,10 +5,10 @@ namespace Ngin.GameParticipants.AI;
 
 public static class Heuristics
 {
-    public static int GetParticipantsScoreBasedOnHealth(Game game, GameParticipant gameParticipant)
+    public static int GetScoreBasedOnHealth(Game game, GameParticipant gameParticipant)
     {
         int deadCharacterValue = (int)game.AllCharacters.Select(x => x.Health.Base).Average();
-        int participantScore = 0;
+        int score = 0;
 
         for (int i = 0; i < game.AllCharacters.Count; i++)
         {
@@ -16,18 +16,36 @@ public static class Heuristics
             
             if (game.AllCharacters[i].IsDead)
             {
-                participantScore += isOwnedByParticipant
+                score += isOwnedByParticipant
                     ? -deadCharacterValue
                     : deadCharacterValue;
             }
             else
             {
-                participantScore += isOwnedByParticipant
+                score += isOwnedByParticipant
                     ? game.AllCharacters[i].Health.Current
                     : -game.AllCharacters[i].Health.Current;
             }
         }
         
-        return participantScore;
+        return score;
+    }
+    
+    public static int GetScoreBasedOnCardsInHandCount(Game game, GameParticipant gameParticipant)
+    {
+        int cardInHandValue = (int)game.AllCharacters.Select(x => x.Hand.Count).Average();;
+        int score = 0;
+
+        for (int i = 0; i < game.AllCharacters.Count; i++)
+        {
+            bool isOwnedByParticipant = game.AllCharacters[i].Owner == gameParticipant;
+            
+            if (isOwnedByParticipant && !game.AllCharacters[i].IsDead)
+            {
+                score += cardInHandValue * game.AllCharacters[i].Hand.Count;
+            }
+        }
+        
+        return score;
     }
 }

@@ -1,14 +1,31 @@
-﻿namespace Ngin.GameParticipants.AI.GOAP;
+﻿using Ngin.Characters;
+using Ngin.Gameplay;
+
+namespace Ngin.GameParticipants.AI.GOAP;
 
 public class DrawGoal : Goal
 {
-    public override float GetPriority()
+    public override int GetPriority(Game game, GameParticipant gameParticipant)
     {
-        throw new System.NotImplementedException();
+        int priority = 0;
+
+        for (int i = 0; i < game.AllCharacters.Count; i++)
+        {
+            Character character = game.AllCharacters[i];
+            bool isOwnedByParticipant = character.Owner == gameParticipant;
+
+            if (isOwnedByParticipant && !character.IsDead)
+            {
+                int missingCards = Game.Settings.MaxCardsInHand - character.Hand.Count;
+                priority += missingCards;
+            }
+        }
+
+        return priority;
     }
 
-    public override float GetScore()
+    public override int GetScore(Game game, GameParticipant gameParticipant)
     {
-        throw new System.NotImplementedException();
+        return Heuristics.GetScoreBasedOnCardsInHandCount(game, gameParticipant);
     }
 }
